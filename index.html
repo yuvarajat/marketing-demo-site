@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VILLA LUMINA | Ultra-Luxury 3D Architectural Flythrough</title>
+  <title>VILLA ATELIER | Curated 3D Architectural Estates</title>
   
-  <meta name="description" content="A continuous 3D architectural flythrough of a multi-million-dollar cliffside concrete and glass villa. Engineered by Yuvathy Technologies and operated on EstateOS.">
+  <meta name="description" content="A continuous 3D architectural flythrough of curated luxury residences. Engineered by Yuvathy Technologies and operated on EstateOS.">
   <meta name="theme-color" content="#020306">
 
   <!-- Google Fonts: Luxury Serif, Technical Mono & Modern Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Remix Icons CDN -->
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
@@ -28,46 +28,34 @@
   <div class="cursor-dot"></div>
   <div class="cursor-follower"></div>
 
-  <!-- Auto-Tour Progress Bar for Video Recording -->
+  <!-- Minimal Auto-Tour Progress Bar for Video Recording -->
   <div id="reel-progress-bar" class="reel-progress-bar"></div>
 
   <!-- =========================================================================
-       SITE HEADER
+       CLEAN MINIMALIST HEADER
        ========================================================================= -->
   <header class="site-header">
     <div class="container nav-container">
       
-      <!-- Brand & Monogram -->
+      <!-- Brand Monogram -->
       <a href="#scroll-track" class="brand-group">
         <div class="brand-monogram">V</div>
-        <div class="brand-info">
-          <span class="brand-title">VILLA LUMINA</span>
-          <span class="brand-sub">ESTATE ATELIER • PACIFIC CLIFFS</span>
-        </div>
+        <span class="brand-title">VILLA ATELIER</span>
       </a>
 
-      <!-- Quick Room Navigation Tabs -->
-      <nav aria-label="Room Navigation">
-        <div class="room-quicknav">
-          <button class="room-nav-btn active" data-scene-index="0">01 ARRIVAL</button>
-          <button class="room-nav-btn" data-scene-index="1">02 GREAT SALON</button>
-          <button class="room-nav-btn" data-scene-index="2">03 INFINITY POOL</button>
-          <button class="room-nav-btn" data-scene-index="3">04 MASTER SUITE</button>
+      <!-- Curated Estate Switcher (Center) -->
+      <nav aria-label="Curated Estates">
+        <div class="estate-switcher">
+          <button class="estate-switch-btn active" data-estate="promontory">The Promontory Villa</button>
+          <button class="estate-switch-btn" data-estate="alpine">The Forest Pavilion</button>
         </div>
       </nav>
 
-      <!-- Utility Controls & VIP CTA -->
+      <!-- Minimal Utility & CTA -->
       <div class="nav-actions">
-        <!-- Web Audio Synthesizer Toggle -->
         <button id="sound-toggle-btn" class="icon-pill-btn" aria-label="Toggle Sound">
           <i class="ri-volume-mute-line sound-icon"></i>
           <span class="sound-label">SOUND: OFF</span>
-        </button>
-
-        <!-- Day/Night Lighting Mode Toggle -->
-        <button id="lighting-toggle-btn" class="icon-pill-btn" aria-label="Toggle Lighting">
-          <i class="ri-sun-moon-line"></i>
-          <span>MIDNIGHT</span>
         </button>
 
         <a href="#vip-modal" class="btn-luxury open-vip-modal">
@@ -87,45 +75,17 @@
     <div class="cinematic-vignette"></div>
   </div>
 
-  <!-- Interactive Hotspots Layer -->
-  <div id="hotspots-layer" class="hotspots-layer"></div>
+  <!-- Minimal Bottom-Left Room Indicator -->
+  <div class="minimal-room-indicator">
+    <span class="indicator-zone">01 / FACADE</span>
+    <div class="indicator-title">The Monolithic Arrival</div>
+    <div class="indicator-specs">14,500 SQ. FT. • BOARD-FORMED CONCRETE &amp; GLASS</div>
+  </div>
 
-  <!-- Architectural HUD Overlay -->
-  <div class="tour-hud">
-    <div class="hud-top-bar">
-      
-      <!-- Room Location Badge -->
-      <div class="tour-location-badge">
-        <span class="room-number">ZONE 01</span>
-        <div class="room-name">The Monolithic Arrival</div>
-        <div class="room-specs">14,500 SQ. FT. ESTATE • MONOLITHIC CONCRETE &amp; GLASS</div>
-      </div>
-
-      <!-- Architectural Minimap & Compass Widget -->
-      <div class="architectural-minimap">
-        <div class="minimap-title">Spatial Floorplan Twin</div>
-        <svg class="minimap-svg" viewBox="0 0 100 65" xmlns="http://www.w3.org/2000/svg">
-          <!-- House Perimeter CAD Blueprint -->
-          <polygon points="10,10 90,10 90,45 60,45 60,60 10,60" fill="none" stroke="rgba(212, 175, 55, 0.4)" stroke-width="1.5" />
-          <rect x="15" y="15" width="30" height="25" fill="rgba(255, 255, 255, 0.05)" stroke="rgba(255,255,255,0.2)" stroke-width="0.8" />
-          <rect x="50" y="15" width="35" height="25" fill="rgba(0, 242, 254, 0.08)" stroke="rgba(0, 242, 254, 0.4)" stroke-width="0.8" />
-          <rect x="15" y="45" width="40" height="12" fill="rgba(212, 175, 55, 0.08)" stroke="rgba(212, 175, 55, 0.3)" stroke-width="0.8" />
-          
-          <!-- Dynamic Camera Cone Indicator -->
-          <g id="minimap-cam" class="minimap-cam-indicator" transform="translate(25, 55) rotate(-25)">
-            <circle cx="0" cy="0" r="3.5" fill="#00f2fe" filter="drop-shadow(0 0 4px #00f2fe)" />
-            <polygon points="-5,-4 0,-14 5,-4" fill="rgba(0, 242, 254, 0.4)" />
-          </g>
-        </svg>
-      </div>
-
-    </div>
-
-    <!-- Mouse Scroll Wheel Prompt -->
-    <div id="scroll-prompt" class="scroll-prompt">
-      <div class="mouse-scroll-wheel"></div>
-      <span>SCROLL TO FLYTHROUGH</span>
-    </div>
+  <!-- Minimal Bottom-Right Scroll Wheel Prompt -->
+  <div id="scroll-prompt" class="scroll-prompt">
+    <div class="mouse-scroll-wheel"></div>
+    <span>SCROLL TO WALK THROUGH</span>
   </div>
 
   <!-- =========================================================================
@@ -133,30 +93,26 @@
        ========================================================================= -->
   <main id="scroll-track" class="scroll-sections-track">
     
-    <!-- Zone 01: The Monolithic Arrival -->
+    <!-- Zone 01: Arrival / Facade -->
     <section class="tour-section-trigger">
       <div class="container" style="width: 100%;">
         <div class="tour-card-panel">
-          <div class="eyebrow">Pacific Cliffside Sanctuary</div>
-          <h2>Monolithic Concrete &amp; Cantilevered Glass.</h2>
+          <div class="eyebrow">THE PROMONTORY VILLA • 01 / FACADE</div>
+          <h2>The Monolithic Arrival.</h2>
           <p>
-            Perched on the ocean promontory, Villa Lumina dissolves the boundary between architecture and nature. Raw board-formed concrete wings float effortlessly over dark granite reflection pools.
+            Pre-stressed concrete cantilevered wings hovering 14ft above dark granite reflection pools, anchored by an architectural 12-ft bronze pivot entryway.
           </p>
 
-          <ul class="room-feature-list">
-            <li class="room-feature-item">
-              <i class="ri-checkbox-circle-fill"></i>
-              <span>14-ft Column-Free Concrete Cantilever</span>
-            </li>
-            <li class="room-feature-item">
-              <i class="ri-checkbox-circle-fill"></i>
-              <span>Biometric Bronze Pivot Entryway</span>
-            </li>
-            <li class="room-feature-item">
-              <i class="ri-checkbox-circle-fill"></i>
-              <span>Submerged Dusk Reflection Pools</span>
-            </li>
-          </ul>
+          <div class="estate-specs-row">
+            <div class="estate-spec-item">
+              <span class="label">Carpet Area</span>
+              <span class="val spec-val-area">14,500 SQ. FT.</span>
+            </div>
+            <div class="estate-spec-item">
+              <span class="label">Accommodations</span>
+              <span class="val spec-val-beds">5 Suites • 7 Baths</span>
+            </div>
+          </div>
 
           <div style="display: flex; gap: 12px; align-items: center;">
             <button id="reel-tour-btn" class="btn-luxury">
@@ -171,99 +127,87 @@
       </div>
     </section>
 
-    <!-- Zone 02: The Great Salon -->
+    <!-- Zone 02: Great Room & Atrium -->
     <section class="tour-section-trigger">
       <div class="container" style="width: 100%;">
         <div class="tour-card-panel align-right">
-          <div class="eyebrow" style="color: var(--cyan-laser);">Volumetric Grandeur</div>
-          <h2>24-Ft Soaring Ceilings &amp; Roman Travertine.</h2>
+          <div class="eyebrow">THE PROMONTORY VILLA • 02 / GREAT ROOM</div>
+          <h2>The Great Salon &amp; Hearth.</h2>
           <p>
-            The great salon features motorized glass walls that retract seamlessly into wall pockets, merging formal living with the ocean horizon. Anchored by an 8-foot linear flame hearth.
+            Floor-to-ceiling motorized glass pocket walls retract completely, merging formal living with the Pacific horizon beside an 8-ft floating linear hearth.
           </p>
 
-          <ul class="room-feature-list">
-            <li class="room-feature-item">
-              <i class="ri-checkbox-circle-fill" style="color: var(--cyan-laser);"></i>
-              <span>Continuous Honed Travertine Radiant Floors</span>
-            </li>
-            <li class="room-feature-item">
-              <i class="ri-checkbox-circle-fill" style="color: var(--cyan-laser);"></i>
-              <span>Acoustically Isolated Mezzanine Bridge</span>
-            </li>
-            <li class="room-feature-item">
-              <i class="ri-checkbox-circle-fill" style="color: var(--cyan-laser);"></i>
-              <span>Concealed Climate &amp; Lighting Telemetry</span>
-            </li>
-          </ul>
+          <div class="estate-specs-row">
+            <div class="estate-spec-item">
+              <span class="label">Ceiling Height</span>
+              <span class="val">24-Ft Double Height</span>
+            </div>
+            <div class="estate-spec-item">
+              <span class="label">Flooring</span>
+              <span class="val">Honed Roman Travertine</span>
+            </div>
+          </div>
 
           <button class="btn-luxury open-vip-modal">
-            <span>Explore Great Salon</span>
+            <span>Inquire About Space</span>
             <i class="ri-arrow-right-line"></i>
           </button>
         </div>
       </div>
     </section>
 
-    <!-- Zone 03: The Infinity Pool Deck -->
+    <!-- Zone 03: Pool Terrace / Spa -->
     <section class="tour-section-trigger">
       <div class="container" style="width: 100%;">
         <div class="tour-card-panel">
-          <div class="eyebrow">Zero-Edge Horizon</div>
-          <h2>Suspended Between Fire &amp; Ocean.</h2>
+          <div class="eyebrow">THE PROMONTORY VILLA • 03 / HORIZON POOL</div>
+          <h2>The Infinity Edge Terrace.</h2>
           <p>
-            A 65-foot zero-edge cantilevered pool juts directly toward the Pacific sunset. Complete with a floating volcanic fire bowl, sunken conversation lounge, and submerged hydromassage loungers.
+            A cantilevered saline pool jutting into the sunset horizon, featuring a floating volcanic stone fire bowl and sunken radiant conversation lounge.
           </p>
 
-          <ul class="room-feature-list">
-            <li class="room-feature-item">
-              <i class="ri-checkbox-circle-fill"></i>
-              <span>Cast Volcanic Stone Floating Fire Bowl</span>
-            </li>
-            <li class="room-feature-item">
-              <i class="ri-checkbox-circle-fill"></i>
-              <span>Sunken Radiant-Heated Outdoor Salon</span>
-            </li>
-            <li class="room-feature-item">
-              <i class="ri-checkbox-circle-fill"></i>
-              <span>Saline Filtration with Geothermal Heating</span>
-            </li>
-          </ul>
+          <div class="estate-specs-row">
+            <div class="estate-spec-item">
+              <span class="label">Pool Dimension</span>
+              <span class="val">65-Ft Cantilevered</span>
+            </div>
+            <div class="estate-spec-item">
+              <span class="label">Water Element</span>
+              <span class="val">Saline Zero-Edge</span>
+            </div>
+          </div>
 
           <button class="btn-luxury open-vip-modal">
-            <span>Inspect Pool Terrace</span>
+            <span>Inspect Terrace</span>
             <i class="ri-arrow-right-line"></i>
           </button>
         </div>
       </div>
     </section>
 
-    <!-- Zone 04: The Master Sky Sanctuary -->
+    <!-- Zone 04: Master Sanctuary -->
     <section class="tour-section-trigger">
       <div class="container" style="width: 100%;">
         <div class="tour-card-panel align-right">
-          <div class="eyebrow" style="color: var(--gold-light);">Private Aerie</div>
-          <h2>Corner Glass Sanctuary Over the Clouds.</h2>
+          <div class="eyebrow">THE PROMONTORY VILLA • 04 / MASTER SUITE</div>
+          <h2>The Master Sky Sanctuary.</h2>
           <p>
-            Occupying the upper cantilevered wing, the 1,400 sq.ft master suite boasts 270-degree frameless corner glass, fluted architectural white oak millwork, and an integrated EstateOS smart suite hub.
+            Frameless corner glass walls open to twilight sea views, flanked by custom fluted white oak acoustic millwork and integrated EstateOS environmental controls.
           </p>
 
-          <ul class="room-feature-list">
-            <li class="room-feature-item">
-              <i class="ri-checkbox-circle-fill"></i>
-              <span>Frameless Butt-Glazed 270° Ocean Vista</span>
-            </li>
-            <li class="room-feature-item">
-              <i class="ri-checkbox-circle-fill"></i>
-              <span>Custom Fluted White Oak Acoustic Paneling</span>
-            </li>
-            <li class="room-feature-item">
-              <i class="ri-checkbox-circle-fill"></i>
-              <span>EstateOS Touchscreen Environmental Automation</span>
-            </li>
-          </ul>
+          <div class="estate-specs-row">
+            <div class="estate-spec-item">
+              <span class="label">Suite Area</span>
+              <span class="val">1,400 SQ. FT.</span>
+            </div>
+            <div class="estate-spec-item">
+              <span class="label">Glazing</span>
+              <span class="val">270° Frameless Corner</span>
+            </div>
+          </div>
 
           <button class="btn-luxury open-vip-modal">
-            <span>Schedule Private Walkthrough</span>
+            <span>Schedule Private Viewing</span>
             <i class="ri-arrow-right-line"></i>
           </button>
         </div>
@@ -273,17 +217,17 @@
     <!-- =========================================================================
          SECTION 5: ESTATEOS PROPTECH INFRASTRUCTURE
          ========================================================================= -->
-    <section id="proptech" class="section-padding estateos-section" style="position: relative; z-index: 10; background: #05070c;">
+    <section id="proptech" class="section-padding estateos-section" style="position: relative; z-index: 10;">
       <div class="container">
         
         <div class="section-head">
           <div class="estateos-badge-chip">
             <i class="ri-cpu-line"></i>
-            <span>POWERED BY ESTATEOS OPERATING SYSTEM</span>
+            <span>OPERATED VIA ESTATEOS</span>
           </div>
-          <h2 class="section-title">The Digital Nervous System of Villa Lumina.</h2>
+          <h2 class="section-title">Intelligent Infrastructure for Modern Estates.</h2>
           <p class="section-subtitle">
-            Villa Lumina is fully orchestrated by <strong>EstateOS</strong>—the real estate CRM, ERP, and Meta marketing automation suite engineered by Yuvathy Technologies.
+            Every residence in Villa Atelier runs on <strong>EstateOS</strong>—the real estate CRM, ERP, and Meta marketing integration suite engineered by Yuvathy Technologies.
           </p>
         </div>
 
@@ -315,7 +259,7 @@
 
         </div>
 
-        <div style="text-align: center; margin-top: 50px;">
+        <div style="text-align: center; margin-top: 48px;">
           <a href="https://estateos.yuvathy.in" target="_blank" rel="noopener noreferrer" class="btn-ghost-cyan">
             <span>Explore EstateOS Platform</span>
             <i class="ri-external-link-line"></i>
@@ -328,35 +272,6 @@
   </main>
 
   <!-- =========================================================================
-       FLOATING REEL RECORDING HUD DOCK (Bottom Bar)
-       Ideal for hands-free video filming in dark rooms
-       ========================================================================= -->
-  <div class="reel-hud-dock" aria-label="Reel Filming Controls">
-    <div class="reel-hud-title">
-      <i class="ri-movie-2-line" style="color: var(--gold-primary);"></i>
-      <span>REEL STUDIO HUD</span>
-    </div>
-
-    <!-- Play/Stop Auto Flythrough -->
-    <button id="reel-tour-btn-dock" class="reel-hud-btn">
-      <i class="ri-play-fill"></i>
-      <span>AUTO FLYTHROUGH [R]</span>
-    </button>
-
-    <!-- Day / Night Toggle -->
-    <button class="reel-hud-btn" onclick="document.getElementById('lighting-toggle-btn').click();">
-      <i class="ri-sun-cloudy-line"></i>
-      <span>THEME [L]</span>
-    </button>
-
-    <!-- Audio Toggle -->
-    <button class="reel-hud-btn" onclick="document.getElementById('sound-toggle-btn').click();">
-      <i class="ri-music-2-line"></i>
-      <span>AUDIO [M]</span>
-    </button>
-  </div>
-
-  <!-- =========================================================================
        VIP BOOKING MODAL
        ========================================================================= -->
   <div id="vip-modal" class="modal-overlay" role="dialog" aria-modal="true">
@@ -364,9 +279,9 @@
       <button id="close-vip-modal" class="modal-close-btn" aria-label="Close modal">&times;</button>
       
       <div class="eyebrow" style="margin-bottom: 8px;">Private Access</div>
-      <h3 style="font-size: 1.8rem; margin-bottom: 12px;">Reserve a Private Viewing</h3>
-      <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 24px;">
-        Walkthroughs of Villa Lumina are conducted by appointment only. Qualified inquiries are synced directly with EstateOS.
+      <h3 style="font-size: 1.6rem; margin-bottom: 10px;">Reserve a Private Walkthrough</h3>
+      <p style="color: var(--text-secondary); font-size: 0.88rem; margin-bottom: 22px;">
+        Private viewings are conducted by appointment only. Qualified inquiries are synced directly with EstateOS CRM.
       </p>
 
       <form id="vip-booking-form">
@@ -386,11 +301,11 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label">Acquisition Interest</label>
-          <input type="text" class="form-input" value="Villa Lumina Estate ($34,500,000 USD / ₹285 Cr)" readonly>
+          <label class="form-label">Estate of Interest</label>
+          <input id="vip-estate-input" type="text" class="form-input" value="The Promontory Villa ($34,500,000 USD / ₹285 Cr)" readonly>
         </div>
 
-        <button type="submit" class="btn-luxury" style="width: 100%; justify-content: center; margin-top: 10px;">
+        <button type="submit" class="btn-luxury" style="width: 100%; justify-content: center; margin-top: 8px;">
           <span>Submit &amp; Sync with EstateOS</span>
           <i class="ri-check-line"></i>
         </button>
@@ -406,12 +321,9 @@
       <div class="footer-grid">
         
         <div>
-          <div class="brand-group" style="margin-bottom: 16px;">
+          <div class="brand-group" style="margin-bottom: 12px;">
             <div class="brand-monogram">V</div>
-            <div class="brand-info">
-              <span class="brand-title">VILLA LUMINA</span>
-              <span class="brand-sub">ESTATE ATELIER</span>
-            </div>
+            <span class="brand-title">VILLA ATELIER</span>
           </div>
           <p class="footer-brand-bio">
             An ultra-luxury architectural showcase designed to demonstrate modern web engineering, continuous 3D flythrough interactivity, and seamless real estate management.
@@ -419,12 +331,10 @@
         </div>
 
         <div>
-          <h4 class="footer-col-title">Spaces</h4>
+          <h4 class="footer-col-title">Estates</h4>
           <ul class="footer-links">
-            <li><a href="#scroll-track" class="footer-link">The Monolithic Arrival</a></li>
-            <li><a href="#scroll-track" class="footer-link">The Great Salon</a></li>
-            <li><a href="#scroll-track" class="footer-link">The Horizon Pool</a></li>
-            <li><a href="#scroll-track" class="footer-link">The Master Sky Sanctuary</a></li>
+            <li><a href="#scroll-track" class="footer-link">The Promontory Villa (Pacific)</a></li>
+            <li><a href="#scroll-track" class="footer-link">The Forest Pavilion (Aspen)</a></li>
           </ul>
         </div>
 
@@ -438,20 +348,12 @@
           </ul>
         </div>
 
-        <div>
-          <h4 class="footer-col-title">Private Inquiries</h4>
-          <p style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.6; margin-bottom: 16px;">
-            Atelier Gallery: Level 18, Vanguard Tower, Bengaluru, Karnataka, India.
-          </p>
-          <a href="mailto:hello@yuvathy.in" class="footer-link" style="color: var(--gold-light);">hello@yuvathy.in</a>
-        </div>
-
       </div>
 
       <!-- Attribution Bar -->
       <div class="attribution-bar">
         <div>
-          &copy; 2026 Villa Lumina. Designed &amp; Built by <a href="https://yuvathy.in" target="_blank" rel="noopener noreferrer">Yuvathy Technologies</a>.
+          &copy; 2026 Villa Atelier. Built by <a href="https://yuvathy.in" target="_blank" rel="noopener noreferrer">Yuvathy Technologies</a>.
         </div>
         <div>
           Powered by <a href="https://estateos.yuvathy.in" target="_blank" rel="noopener noreferrer">EstateOS Real Estate Workspace</a>.

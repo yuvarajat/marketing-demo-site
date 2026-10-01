@@ -1,70 +1,90 @@
 /* ==========================================================================
-   LUMINA VILLA - 3D ARCHITECTURAL FLYTHROUGH SCROLLYTELLING ENGINE
-   Continuous 3D Camera Flythrough Through Actual Luxury Residence
+   LUMINA VILLA - MINIMALIST 3D ARCHITECTURAL FLYTHROUGH ENGINE
+   Supports Seamless Switching Between Curated Architectural Estates
    ========================================================================== */
 
-const VILLA_SCENES = [
-  {
-    id: 'exterior-arrival',
-    num: 'ZONE 01',
-    name: 'The Monolithic Arrival',
-    specs: '14,500 SQ. FT. ESTATE • MONOLITHIC CONCRETE & GLASS',
-    src: 'assets/exterior-arrival.jpg',
-    camX: 25,
-    camY: 55,
-    camAngle: -25,
-    hotspots: [
-      { top: '38%', left: '42%', title: 'Cantilevered Upper Wing', desc: 'Pre-stressed post-tensioned concrete structural pavilion floating 14ft without columns.', tag: 'STRUCTURAL ENGINEERING' },
-      { top: '78%', left: '48%', title: 'Reflective Mirror Pool', desc: 'Dark granite infinity reflection pool mirroring the evening sky and architectural facade.', tag: 'WATER FEATURE' },
-      { top: '65%', left: '72%', title: 'Biometric Access Pivot', desc: 'Custom 12-ft architectural bronze pivot door with EstateOS biometric token sync.', tag: 'ESTATEOS SMART ACCESS' }
+const ESTATES_CATALOG = {
+  promontory: {
+    id: 'promontory',
+    name: 'The Promontory Villa',
+    location: 'Pacific Palisades, California',
+    price: '$34,500,000 USD / ₹285 Cr',
+    carpetArea: '14,500 SQ. FT.',
+    bedsBaths: '5 Suites • 7 Baths',
+    lotSize: '1.8 Acres Oceanfront',
+    structure: 'Monolithic Concrete & Steel',
+    scenes: [
+      {
+        num: '01 / FACADE',
+        title: 'The Monolithic Arrival',
+        specs: '14,500 SQ. FT. • BOARD-FORMED CONCRETE & GLASS',
+        desc: 'Pre-stressed concrete cantilevered wings hovering 14ft above dark granite reflection pools, anchored by an architectural 12-ft bronze pivot entryway.',
+        src: 'assets/exterior-arrival.jpg'
+      },
+      {
+        num: '02 / GREAT ROOM',
+        title: 'The Great Salon & Hearth',
+        specs: '24-FT CEILINGS • HONED ROMAN TRAVERTINE',
+        desc: 'Floor-to-ceiling motorized glass pocket walls retract completely, merging formal living with the Pacific horizon beside an 8-ft floating linear hearth.',
+        src: 'assets/great-room.jpg'
+      },
+      {
+        num: '03 / HORIZON POOL',
+        title: 'The Infinity Edge Terrace',
+        specs: '65-FT ZERO-EDGE POOL • SUNKEN FIRE LOUNGE',
+        desc: 'A cantilevered saline pool jutting into the sunset horizon, featuring a floating volcanic stone fire bowl and sunken radiant conversation lounge.',
+        src: 'assets/infinity-pool.jpg'
+      },
+      {
+        num: '04 / MASTER SUITE',
+        title: 'The Master Sky Sanctuary',
+        specs: '1,400 SQ. FT. PRIVATE AERIE • 270° CORNER GLASS',
+        desc: 'Frameless corner glass walls open to twilight sea views, flanked by custom fluted white oak acoustic millwork and integrated EstateOS environmental controls.',
+        src: 'assets/master-suite.jpg'
+      }
     ]
   },
-  {
-    id: 'great-room',
-    num: 'ZONE 02',
-    name: 'The Great Salon & Hearth',
-    specs: '24-FT CEILINGS • ITALIAN TRAVERTINE • LINEAR FIREPLACE',
-    src: 'assets/great-room.jpg',
-    camX: 50,
-    camY: 45,
-    camAngle: 0,
-    hotspots: [
-      { top: '62%', left: '55%', title: 'Floating Linear Hearth', desc: 'Custom 8-foot ethanol linear fireplace set in raw board-formed concrete wall.', tag: 'ARCHITECTURAL HEARTH' },
-      { top: '48%', left: '18%', title: 'Motorized Glass Pocket Doors', desc: 'Triple-track zero-threshold sliding glass walls that pocket into walls completely.', tag: 'INDOOR-OUTDOOR LIVING' },
-      { top: '85%', left: '40%', title: 'Honed Roman Travertine', desc: 'Continuous indoor-to-outdoor slab stone with radiant hydrological heating.', tag: 'FINISHES & TEXTURES' }
-    ]
-  },
-  {
-    id: 'infinity-pool',
-    num: 'ZONE 03',
-    name: 'The Horizon Infinity Terrace',
-    specs: '65-FT ZERO-EDGE POOL • SUNKEN FIRE LOUNGE • OCEAN VISTA',
-    src: 'assets/infinity-pool.jpg',
-    camX: 75,
-    camY: 50,
-    camAngle: 35,
-    hotspots: [
-      { top: '68%', left: '35%', title: 'Submerged Fire Bowl', desc: 'Cast volcanic stone fire bowl rising from pool surface with automated flame control.', tag: 'BESPOKE FIRE ELEMENT' },
-      { top: '65%', left: '80%', title: 'Sunken Outdoor Salon', desc: 'Custom upholstered banquettes with integrated radiant seat heaters and ambient LEDs.', tag: 'ENTERTAINING LOUNGE' },
-      { top: '55%', left: '20%', title: 'Zero-Edge Horizon Spillage', desc: 'Unbroken water weir visually merging the infinity pool with the Pacific Ocean.', tag: 'HYDRAULIC POOL DESIGN' }
-    ]
-  },
-  {
-    id: 'master-suite',
-    num: 'ZONE 04',
-    name: 'The Master Sky Sanctuary',
-    specs: '1,400 SQ. FT. PRIVATE AERIE • CORNER HORIZON GLASS',
-    src: 'assets/master-suite.jpg',
-    camX: 45,
-    camY: 20,
-    camAngle: -45,
-    hotspots: [
-      { top: '42%', left: '22%', title: 'Frameless Corner Glazing', desc: 'Butt-glazed structural glass corner offering unobstructed 270° twilight sea horizon.', tag: 'GLAZING ARCHITECTURE' },
-      { top: '68%', left: '75%', title: 'Fluted White Oak Paneling', desc: 'Acoustic architectural millwork with concealed flush doors and integrated warm lighting.', tag: 'BESPOKE MILLWORK' },
-      { top: '72%', left: '60%', title: 'Cantilevered Platform Bed', desc: 'Low-profile solid walnut bed with integrated wireless charging and EstateOS touch panel.', tag: 'SMART BEDROOM' }
+  alpine: {
+    id: 'alpine',
+    name: 'The Forest Glass Pavilion',
+    location: 'Aspen Forest Reserve, Colorado',
+    price: '$22,800,000 USD / ₹190 Cr',
+    carpetArea: '11,200 SQ. FT.',
+    bedsBaths: '4 Suites • 5 Baths',
+    lotSize: '3.4 Acres Evergreen Forest',
+    structure: 'Dark Architectural Steel & Cedar',
+    scenes: [
+      {
+        num: '01 / FOREST ARRIVAL',
+        title: 'The Pine Canopy Pavilion',
+        specs: '11,200 SQ. FT. • MINIMALIST BLACK STEEL & GLASS',
+        desc: 'A floating black steel pavilion set among misty alpine evergreens, featuring wrap-around dark cedar decks and natural stone reflection waters.',
+        src: 'assets/alpine-exterior.jpg'
+      },
+      {
+        num: '02 / LIVING ATRIUM',
+        title: 'The Suspended Hearth Atrium',
+        specs: 'TIMBER SLAT CEILING • FLOATING STEEL FIREPLACE',
+        desc: 'Floor-to-ceiling glass showcases towering pine trees, centered around a sculptural suspended steel hearth and warm acoustic cedar ceiling slats.',
+        src: 'assets/alpine-living.jpg'
+      },
+      {
+        num: '03 / CEDAR SPA',
+        title: 'The Alpine Infinity Spa',
+        specs: 'HEATED BLACK GRANITE SPA • HEATED CEDAR DECK',
+        desc: 'A cantilevered hot spring infinity spa overlooking misty valley trees, with integrated geothermal water heating and warm recessed step illumination.',
+        src: 'assets/alpine-pool.jpg'
+      },
+      {
+        num: '04 / CANOPY SUITE',
+        title: 'The Forest Master Sanctuary',
+        specs: 'LOW-PROFILE WALNUT BED • PRIVATE WOOD STOVE',
+        desc: 'Frameless glass dissolves into the forest canopy, complemented by dark cedar architectural partitions, a private hearth, and heated concrete floors.',
+        src: 'assets/alpine-bedroom.jpg'
+      }
     ]
   }
-];
+};
 
 class VillaTourEngine {
   constructor() {
@@ -72,12 +92,13 @@ class VillaTourEngine {
     if (!this.canvas) return;
 
     this.ctx = this.canvas.getContext('2d');
+    this.currentEstateKey = 'promontory';
     this.currentSceneIndex = 0;
     this.scrollProgress = 0;
     this.images = [];
     this.imagesLoaded = 0;
 
-    // Mouse Parallax values with damping
+    // Mouse Parallax values with smooth inertia
     this.mouseX = 0;
     this.mouseY = 0;
     this.targetTiltX = 0;
@@ -85,22 +106,20 @@ class VillaTourEngine {
     this.currentTiltX = 0;
     this.currentTiltY = 0;
 
-    // HUD Elements
-    this.badgeRoomNumber = document.querySelector('.tour-location-badge .room-number');
-    this.badgeRoomName = document.querySelector('.tour-location-badge .room-name');
-    this.badgeRoomSpecs = document.querySelector('.tour-location-badge .room-specs');
-    this.minimapCam = document.getElementById('minimap-cam');
-    this.quickNavButtons = document.querySelectorAll('.room-nav-btn');
-    this.hotspotsLayer = document.getElementById('hotspots-layer');
+    // Minimal Indicators
+    this.indicatorZone = document.querySelector('.indicator-zone');
+    this.indicatorTitle = document.querySelector('.indicator-title');
+    this.indicatorSpecs = document.querySelector('.indicator-specs');
+    this.estateSwitchButtons = document.querySelectorAll('.estate-switch-btn');
 
     this.init();
   }
 
   init() {
     this.resizeCanvas();
-    this.preloadImages();
+    this.loadEstate(this.currentEstateKey);
     this.setupEventListeners();
-    this.setupQuickNav();
+    this.setupEstateSwitcher();
     this.animate();
   }
 
@@ -114,19 +133,77 @@ class VillaTourEngine {
     this.ctx.scale(Math.min(window.devicePixelRatio, 2), Math.min(window.devicePixelRatio, 2));
   }
 
-  preloadImages() {
-    VILLA_SCENES.forEach((scene, index) => {
+  loadEstate(estateKey) {
+    const estate = ESTATES_CATALOG[estateKey];
+    if (!estate) return;
+
+    this.currentEstateKey = estateKey;
+    this.images = [];
+    this.imagesLoaded = 0;
+
+    // Preload estate scenes
+    estate.scenes.forEach((scene, index) => {
       const img = new Image();
       img.src = scene.src;
       img.onload = () => {
         this.imagesLoaded++;
-        if (this.imagesLoaded === VILLA_SCENES.length) {
+        if (this.imagesLoaded === estate.scenes.length) {
           this.renderScene(0, 0);
           this.updateHUD(0);
         }
       };
       this.images[index] = img;
     });
+
+    // Update editorial cards on page
+    this.updatePageContent(estate);
+  }
+
+  setupEstateSwitcher() {
+    this.estateSwitchButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const estateKey = e.currentTarget.getAttribute('data-estate');
+        if (estateKey && estateKey !== this.currentEstateKey) {
+          if (window.luminaAudio) window.luminaAudio.playClick();
+          
+          this.estateSwitchButtons.forEach(b => b.classList.remove('active'));
+          e.currentTarget.classList.add('active');
+
+          this.loadEstate(estateKey);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
+    });
+  }
+
+  updatePageContent(estate) {
+    const triggers = document.querySelectorAll('.tour-section-trigger');
+    triggers.forEach((trigger, idx) => {
+      const scene = estate.scenes[idx];
+      if (!scene) return;
+
+      const h2 = trigger.querySelector('h2');
+      const p = trigger.querySelector('p');
+      const eyebrow = trigger.querySelector('.eyebrow');
+
+      if (h2) h2.textContent = scene.title;
+      if (p) p.textContent = scene.desc;
+      if (eyebrow) eyebrow.textContent = `${estate.name.toUpperCase()} • ${scene.num}`;
+
+      // Update estate spec row if present
+      const areaEl = trigger.querySelector('.spec-val-area');
+      const bedsEl = trigger.querySelector('.spec-val-beds');
+      const priceEl = trigger.querySelector('.spec-val-price');
+      if (areaEl) areaEl.textContent = estate.carpetArea;
+      if (bedsEl) bedsEl.textContent = estate.bedsBaths;
+      if (priceEl) priceEl.textContent = estate.price;
+    });
+
+    // Update Modal Acquisition Title
+    const modalInput = document.getElementById('vip-estate-input');
+    if (modalInput) {
+      modalInput.value = `${estate.name} (${estate.price})`;
+    }
   }
 
   setupEventListeners() {
@@ -135,52 +212,33 @@ class VillaTourEngine {
       this.renderScene(this.currentSceneIndex, 0);
     });
 
-    // Mouse trackpad parallax
     window.addEventListener('mousemove', (e) => {
       this.mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
       this.mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
-      this.targetTiltX = this.mouseX * 18;
-      this.targetTiltY = this.mouseY * 12;
+      this.targetTiltX = this.mouseX * 16;
+      this.targetTiltY = this.mouseY * 10;
     });
 
-    // Scroll synchronization
     window.addEventListener('scroll', () => {
       this.handleScroll();
     });
-  }
-
-  setupQuickNav() {
-    this.quickNavButtons.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const sceneIdx = parseInt(e.currentTarget.getAttribute('data-scene-index'), 10);
-        if (!isNaN(sceneIdx)) {
-          this.jumpToScene(sceneIdx);
-        }
-      });
-    });
-  }
-
-  jumpToScene(sceneIdx) {
-    const trigger = document.querySelectorAll('.tour-section-trigger')[sceneIdx];
-    if (trigger) {
-      trigger.scrollIntoView({ behavior: 'smooth' });
-    }
   }
 
   handleScroll() {
     const track = document.getElementById('scroll-track');
     if (!track) return;
 
-    const rect = track.getBoundingClientRect();
     const totalHeight = track.scrollHeight - window.innerHeight;
     const currentScroll = window.scrollY;
 
     const progress = Math.max(0, Math.min(1, currentScroll / totalHeight));
     this.scrollProgress = progress;
 
-    // Determine current scene index (0 to 3)
-    const floatScene = progress * (VILLA_SCENES.length - 1);
-    const sceneIndex = Math.min(VILLA_SCENES.length - 2, Math.floor(floatScene));
+    const estate = ESTATES_CATALOG[this.currentEstateKey];
+    if (!estate) return;
+
+    const floatScene = progress * (estate.scenes.length - 1);
+    const sceneIndex = Math.min(estate.scenes.length - 2, Math.floor(floatScene));
     const sceneTransitionProgress = floatScene - sceneIndex;
 
     this.currentSceneIndex = Math.round(floatScene);
@@ -189,25 +247,24 @@ class VillaTourEngine {
   }
 
   renderScene(fromIdx, transitionProgress) {
-    if (this.images.length < VILLA_SCENES.length) return;
+    const estate = ESTATES_CATALOG[this.currentEstateKey];
+    if (!estate || this.images.length < estate.scenes.length) return;
 
     this.ctx.clearRect(0, 0, this.width, this.height);
 
     const fromImg = this.images[fromIdx];
-    const toIdx = Math.min(VILLA_SCENES.length - 1, fromIdx + 1);
+    const toIdx = Math.min(estate.scenes.length - 1, fromIdx + 1);
     const toImg = this.images[toIdx];
 
-    // Camera Push Scale: Simulates flying forward into the space
-    const baseScaleFrom = 1.0 + (transitionProgress * 0.18);
-    const baseScaleTo = 1.25 - (transitionProgress * 0.25);
+    // Smooth forward push in 3D
+    const baseScaleFrom = 1.0 + (transitionProgress * 0.16);
+    const baseScaleTo = 1.22 - (transitionProgress * 0.22);
 
-    // Draw 'from' scene with forward push
     this.ctx.save();
     this.ctx.globalAlpha = 1.0 - transitionProgress;
     this.drawCoverImage(fromImg, baseScaleFrom, this.currentTiltX, this.currentTiltY);
     this.ctx.restore();
 
-    // Cross-fade 'to' scene pushing into the next room
     if (transitionProgress > 0) {
       this.ctx.save();
       this.ctx.globalAlpha = transitionProgress;
@@ -239,76 +296,30 @@ class VillaTourEngine {
   }
 
   updateHUD(sceneIdx) {
-    const scene = VILLA_SCENES[sceneIdx];
+    const estate = ESTATES_CATALOG[this.currentEstateKey];
+    if (!estate) return;
+
+    const scene = estate.scenes[sceneIdx];
     if (!scene) return;
 
-    // Update Room Badge Text
-    if (this.badgeRoomNumber) this.badgeRoomNumber.textContent = scene.num;
-    if (this.badgeRoomName) this.badgeRoomName.textContent = scene.name;
-    if (this.badgeRoomSpecs) this.badgeRoomSpecs.textContent = scene.specs;
-
-    // Update QuickNav active button
-    this.quickNavButtons.forEach(btn => {
-      const idx = parseInt(btn.getAttribute('data-scene-index'), 10);
-      if (idx === sceneIdx) {
-        btn.classList.add('active');
-      } else {
-        btn.classList.remove('active');
-      }
-    });
-
-    // Update Minimap Camera Indicator
-    if (this.minimapCam) {
-      this.minimapCam.style.transform = `translate(${scene.camX}px, ${scene.camY}px) rotate(${scene.camAngle}deg)`;
-    }
-
-    // Render Hotspots for the current scene
-    this.renderHotspots(scene);
-  }
-
-  renderHotspots(scene) {
-    if (!this.hotspotsLayer) return;
-
-    let markup = '';
-    scene.hotspots.forEach(spot => {
-      markup += `
-        <div class="live-hotspot" style="top: ${spot.top}; left: ${spot.left};">
-          <div class="hotspot-beacon">
-            <i class="ri-add-line"></i>
-          </div>
-          <div class="hotspot-card">
-            <div class="spec-tag">${spot.tag}</div>
-            <h4>${spot.title}</h4>
-            <p>${spot.desc}</p>
-          </div>
-        </div>
-      `;
-    });
-
-    this.hotspotsLayer.innerHTML = markup;
-
-    // Audio on hotspot hover
-    const hotspots = this.hotspotsLayer.querySelectorAll('.live-hotspot');
-    hotspots.forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        if (window.luminaAudio) window.luminaAudio.playHover();
-      });
-    });
+    if (this.indicatorZone) this.indicatorZone.textContent = scene.num;
+    if (this.indicatorTitle) this.indicatorTitle.textContent = scene.title;
+    if (this.indicatorSpecs) this.indicatorSpecs.textContent = scene.specs;
   }
 
   animate() {
     requestAnimationFrame(() => this.animate());
 
-    // Inertia damping on parallax tilt
     this.currentTiltX += (this.targetTiltX - this.currentTiltX) * 0.08;
     this.currentTiltY += (this.targetTiltY - this.currentTiltY) * 0.08;
 
-    // Continuous smooth redraw
-    const floatScene = this.scrollProgress * (VILLA_SCENES.length - 1);
-    const sceneIndex = Math.min(VILLA_SCENES.length - 2, Math.floor(floatScene));
-    const transitionP = floatScene - sceneIndex;
-
-    this.renderScene(sceneIndex, transitionP);
+    const estate = ESTATES_CATALOG[this.currentEstateKey];
+    if (estate) {
+      const floatScene = this.scrollProgress * (estate.scenes.length - 1);
+      const sceneIndex = Math.min(estate.scenes.length - 2, Math.floor(floatScene));
+      const transitionP = floatScene - sceneIndex;
+      this.renderScene(sceneIndex, transitionP);
+    }
   }
 }
 
