@@ -1,30 +1,21 @@
 /* ==========================================================================
-   LUMINA RESIDENCES - MAIN APPLICATION CONTROLLER
+   LUMINA VILLA - MAIN APPLICATION CONTROLLER
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Initialize Custom Cursor Glow
+  // 1. Initialize Custom Smooth Cursor Glow
   setupCursor();
 
-  // 2. Initialize Three.js 3D Architectural Scene
+  // 2. Initialize 3D Photorealistic Villa Flythrough Engine
   try {
-    if (typeof THREE !== 'undefined' && window.LuminaArchitecturalScene) {
-      window.lumina3D = new window.LuminaArchitecturalScene('webgl-canvas');
+    if (window.VillaTourEngine) {
+      window.luminaTour = new window.VillaTourEngine();
     }
   } catch (err) {
-    console.error('Failed to initialize 3D scene:', err);
+    console.error('Failed to initialize Villa Tour Engine:', err);
   }
 
-  // 3. Initialize Interactive Residence & Blueprint Configurator
-  try {
-    if (window.FloorplanConfigurator) {
-      window.luminaFloorplan = new window.FloorplanConfigurator();
-    }
-  } catch (err) {
-    console.error('Failed to initialize floorplan configurator:', err);
-  }
-
-  // 4. Initialize Procedural Audio Synthesizer
+  // 3. Initialize Procedural Audio Synthesizer
   try {
     if (window.LuminaAudioEngine) {
       window.luminaAudio = new window.LuminaAudioEngine();
@@ -33,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error('Failed to initialize audio engine:', err);
   }
 
-  // 5. Initialize Cinematic Reel Tour Director
+  // 4. Initialize Cinematic Reel Flythrough Director
   try {
     if (window.CinematicReelDirector) {
       window.luminaDirector = new window.CinematicReelDirector();
@@ -42,14 +33,22 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error('Failed to initialize reel director:', err);
   }
 
-  // 6. Header Scroll Blur & Navigation
+  // 5. Header Scroll Effects & Smooth Navigation
   setupHeader();
 
-  // 7. VIP Modal & Form Handlers
+  // 6. VIP Booking Modal & Form Handlers
   setupVipModal();
 
-  // 8. 3D Viewport HUD Control Buttons
-  setupViewportHudControls();
+  // Hide scroll prompt on scroll
+  const scrollPrompt = document.getElementById('scroll-prompt');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 120 && scrollPrompt) {
+      scrollPrompt.style.opacity = '0';
+      scrollPrompt.style.pointerEvents = 'none';
+    } else if (scrollPrompt && (!window.luminaDirector || !window.luminaDirector.isPlaying)) {
+      scrollPrompt.style.opacity = '0.9';
+    }
+  });
 });
 
 /* --- Custom Cursor Follower --- */
@@ -58,7 +57,6 @@ function setupCursor() {
   const cursorFollower = document.querySelector('.cursor-follower');
   if (!cursorDot || !cursorFollower) return;
 
-  // Don't show custom cursor on touch devices
   if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
     cursorDot.style.display = 'none';
     cursorFollower.style.display = 'none';
@@ -70,7 +68,7 @@ function setupCursor() {
     cursorFollower.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
   });
 
-  const interactiveElements = document.querySelectorAll('a, button, input, .unit-tab-btn, .blueprint-hotspot, .feature-card');
+  const interactiveElements = document.querySelectorAll('a, button, input, .room-nav-btn, .live-hotspot, .tour-card-panel');
   interactiveElements.forEach(el => {
     el.addEventListener('mouseenter', () => {
       cursorFollower.classList.add('active');
@@ -94,7 +92,6 @@ function setupHeader() {
     }
   });
 
-  // Smooth anchor scrolling
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       const targetId = this.getAttribute('href');
@@ -145,48 +142,18 @@ function setupVipModal() {
       const submitBtn = bookingForm.querySelector('button[type="submit"]');
       const originalText = submitBtn.textContent;
 
-      submitBtn.textContent = 'RESERVED • ESTATEOS SYNCHRONIZED';
+      submitBtn.textContent = 'CONFIRMED • ESTATEOS SYNCHRONIZED';
       submitBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
       submitBtn.style.color = '#ffffff';
 
       setTimeout(() => {
-        alert('Thank you for reserving a private consultation. Integrated directly with EstateOS CRM.');
+        alert('Thank you for reserving a private walkthrough. Synced directly with EstateOS CRM.');
         modal.classList.remove('active');
         bookingForm.reset();
         submitBtn.textContent = originalText;
         submitBtn.style.background = '';
         submitBtn.style.color = '';
       }, 900);
-    });
-  }
-}
-
-/* --- 3D Viewport HUD Controls --- */
-function setupViewportHudControls() {
-  const resetBtn = document.getElementById('hud-reset-view');
-  const zoomInBtn = document.getElementById('hud-zoom-in');
-  const zoomOutBtn = document.getElementById('hud-zoom-out');
-
-  if (resetBtn && window.lumina3D) {
-    resetBtn.addEventListener('click', () => {
-      window.lumina3D.targetRotationX = 0;
-      window.lumina3D.targetRotationY = 0;
-      window.lumina3D.setCameraAngle('default');
-      if (window.luminaAudio) window.luminaAudio.playClick();
-    });
-  }
-
-  if (zoomInBtn && window.lumina3D) {
-    zoomInBtn.addEventListener('click', () => {
-      window.lumina3D.camera.position.z = Math.max(22, window.lumina3D.camera.position.z - 6);
-      if (window.luminaAudio) window.luminaAudio.playClick();
-    });
-  }
-
-  if (zoomOutBtn && window.lumina3D) {
-    zoomOutBtn.addEventListener('click', () => {
-      window.lumina3D.camera.position.z = Math.min(75, window.lumina3D.camera.position.z + 6);
-      if (window.luminaAudio) window.luminaAudio.playClick();
     });
   }
 }

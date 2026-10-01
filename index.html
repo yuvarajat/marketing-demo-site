@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LUMINA Sky Residences | Ultra-Luxury 3D Architectural Showcase</title>
+  <title>VILLA LUMINA | Ultra-Luxury 3D Architectural Flythrough</title>
   
-  <meta name="description" content="An architectural triumph of cantilevered glass and boundless sky. Engineered by Yuvathy Technologies and powered by EstateOS.">
-  <meta name="theme-color" content="#05070c">
+  <meta name="description" content="A continuous 3D architectural flythrough of a multi-million-dollar cliffside concrete and glass villa. Engineered by Yuvathy Technologies and operated on EstateOS.">
+  <meta name="theme-color" content="#020306">
 
-  <!-- Google Fonts: Luxury Serif & Modern Clean Sans -->
+  <!-- Google Fonts: Luxury Serif, Technical Mono & Modern Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -20,16 +20,9 @@
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/tour.css">
 </head>
 <body>
-
-  <!-- Ambient Light Orbs & Tech Grid Overlay -->
-  <div class="ambient-lighting">
-    <div class="ambient-orb ambient-orb-1"></div>
-    <div class="ambient-orb ambient-orb-2"></div>
-    <div class="ambient-orb ambient-orb-3"></div>
-  </div>
-  <div class="cyber-grid"></div>
 
   <!-- Custom Smooth Cursor Glow -->
   <div class="cursor-dot"></div>
@@ -45,22 +38,22 @@
     <div class="container nav-container">
       
       <!-- Brand & Monogram -->
-      <a href="#hero" class="brand-group">
-        <div class="brand-monogram">L</div>
+      <a href="#scroll-track" class="brand-group">
+        <div class="brand-monogram">V</div>
         <div class="brand-info">
-          <span class="brand-title">LUMINA</span>
-          <span class="brand-sub">SKY RESIDENCES</span>
+          <span class="brand-title">VILLA LUMINA</span>
+          <span class="brand-sub">ESTATE ATELIER • PACIFIC CLIFFS</span>
         </div>
       </a>
 
-      <!-- Primary Navigation Links -->
-      <nav aria-label="Primary">
-        <ul class="nav-links">
-          <li><a href="#hero" class="nav-link active">Monument</a></li>
-          <li><a href="#architecture" class="nav-link">Architecture</a></li>
-          <li><a href="#residences" class="nav-link">Collection</a></li>
-          <li><a href="#proptech" class="nav-link">EstateOS Engine</a></li>
-        </ul>
+      <!-- Quick Room Navigation Tabs -->
+      <nav aria-label="Room Navigation">
+        <div class="room-quicknav">
+          <button class="room-nav-btn active" data-scene-index="0">01 ARRIVAL</button>
+          <button class="room-nav-btn" data-scene-index="1">02 GREAT SALON</button>
+          <button class="room-nav-btn" data-scene-index="2">03 INFINITY POOL</button>
+          <button class="room-nav-btn" data-scene-index="3">04 MASTER SUITE</button>
+        </div>
       </nav>
 
       <!-- Utility Controls & VIP CTA -->
@@ -86,242 +79,201 @@
     </div>
   </header>
 
-  <main>
-    <!-- =========================================================================
-         HERO SECTION: 3D WEBGL MONUMENT & EDITORIAL TYPOGRAPHY
-         ========================================================================= -->
-    <section id="hero" class="hero-section">
-      <div class="container hero-grid">
-        
-        <!-- Left: Copy & Value Proposition -->
-        <div class="hero-copy">
-          <div class="status-badge">
-            <span class="status-pulse-dot"></span>
-            <span>PHASE 1 RESERVATIONS • ESTATEOS VERIFIED</span>
-          </div>
+  <!-- =========================================================================
+       CINEMATIC 3D VILLA FLYTHROUGH VIEWPORT (FIXED FULLSCREEN)
+       ========================================================================= -->
+  <div class="tour-viewport">
+    <canvas id="tour-canvas"></canvas>
+    <div class="cinematic-vignette"></div>
+  </div>
 
-          <h1 class="hero-title">
-            The Pinnacle of <br>
-            <span class="gold-gradient-text">Skyline Living.</span>
-          </h1>
+  <!-- Interactive Hotspots Layer -->
+  <div id="hotspots-layer" class="hotspots-layer"></div>
 
-          <p class="hero-description">
-            Hovering 44 levels above the metropolis, LUMINA merges biometric intelligent engineering with cantilevered glass architecture. Designed for visionary minds who refuse compromise.
-          </p>
-
-          <div class="hero-cta-group">
-            <a href="#residences" class="btn-luxury">
-              <span>Explore Residences</span>
-              <i class="ri-arrow-down-line"></i>
-            </a>
-            <button id="reel-tour-btn" class="btn-ghost-cyan">
-              <i class="ri-play-circle-line"></i>
-              <span>Cinematic Tour [R]</span>
-            </button>
-          </div>
-
-          <!-- Hero High-Ticket Metrics -->
-          <div class="hero-metrics">
-            <div class="metric-item">
-              <div class="metric-num">44<span>LVL</span></div>
-              <div class="metric-label">Skyward Height</div>
-            </div>
-            <div class="metric-item">
-              <div class="metric-num">360<span>°</span></div>
-              <div class="metric-label">Panoramic Horizon</div>
-            </div>
-            <div class="metric-item">
-              <div class="metric-num">₹28.5<span>CR</span></div>
-              <div class="metric-label">Apex Penthouse</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right: Real-Time WebGL 3D Architectural Monument -->
-        <div class="hero-canvas-container glass-panel">
-          <!-- Top HUD Viewport Overlay -->
-          <div class="canvas-hud-top">
-            <div class="hud-badge">
-              <i class="ri-radar-line"></i>
-              <span>MODEL: <strong class="coord-indicator">LUMINA-PROTOTYPE v2.4</strong></span>
-            </div>
-            <div class="hud-badge">
-              <span>LAT: <strong class="coord-indicator">12.9716° N</strong></span>
-            </div>
-          </div>
-
-          <!-- 3D Canvas -->
-          <canvas id="webgl-canvas"></canvas>
-
-          <!-- Bottom HUD Viewport Overlay -->
-          <div class="canvas-hud-bottom">
-            <div class="canvas-instructions">
-              <i class="ri-drag-move-2-line"></i>
-              <span>DRAG TO ORBIT • SCROLL TO INSPECT</span>
-            </div>
-            <div class="canvas-controls-group">
-              <button id="hud-zoom-in" class="hud-control-btn" title="Zoom In"><i class="ri-add-line"></i></button>
-              <button id="hud-zoom-out" class="hud-control-btn" title="Zoom Out"><i class="ri-subtract-line"></i></button>
-              <button id="hud-reset-view" class="hud-control-btn" title="Reset View"><i class="ri-refresh-line"></i></button>
-            </div>
-          </div>
-        </div>
-
+  <!-- Architectural HUD Overlay -->
+  <div class="tour-hud">
+    <div class="hud-top-bar">
+      
+      <!-- Room Location Badge -->
+      <div class="tour-location-badge">
+        <span class="room-number">ZONE 01</span>
+        <div class="room-name">The Monolithic Arrival</div>
+        <div class="room-specs">14,500 SQ. FT. ESTATE • MONOLITHIC CONCRETE &amp; GLASS</div>
       </div>
-    </section>
 
-    <!-- =========================================================================
-         SECTION 2: ARCHITECTURAL PHILOSOPHY & CRAFTSMANSHIP
-         ========================================================================= -->
-    <section id="architecture" class="section-padding">
-      <div class="container">
-        
-        <div class="section-head">
-          <div class="eyebrow">Sculpted By Light & Precision</div>
-          <h2 class="section-title">Engineered to Outlast Generations.</h2>
-          <p class="section-subtitle">
-            Every millimeter of LUMINA was conceived with parametric algorithms to maximize aerodynamic stability, solar insulation, and infinite floor-to-ceiling vistas.
-          </p>
-        </div>
-
-        <div class="features-grid">
-          <!-- Feature 1 -->
-          <div class="feature-card glass-panel">
-            <div class="feature-card-icon">
-              <i class="ri-building-4-line"></i>
-            </div>
-            <h3>Cantilevered Architecture</h3>
-            <p>
-              Aerospace-grade structural steel allows sky balconies to extend 4.5 meters into open space without supporting pillars, delivering true floating horizon sensations.
-            </p>
-          </div>
-
-          <!-- Feature 2 -->
-          <div class="feature-card glass-panel">
-            <div class="feature-card-icon">
-              <i class="ri-fingerprint-line"></i>
-            </div>
-            <h3>EstateOS Biometric Core</h3>
-            <p>
-              Private high-speed elevators automatically recognize residents via facial topography and biometric tokens, whisking you to your private foyer in under 24 seconds.
-            </p>
-          </div>
-
-          <!-- Feature 3 -->
-          <div class="feature-card glass-panel">
-            <div class="feature-card-icon">
-              <i class="ri-copper-diamond-line"></i>
-            </div>
-            <h3>Acoustic Acoustic Isolation</h3>
-            <p>
-              Triple-glazed acoustic laminate glass shields against 99.4% of urban audio frequencies, preserving total tranquility 400 feet above the bustling city.
-            </p>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- =========================================================================
-         SECTION 3: RESIDENCE CONFIGURATOR & INTERACTIVE BLUEPRINT
-         ========================================================================= -->
-    <section id="residences" class="section-padding" style="background: rgba(11, 15, 25, 0.4);">
-      <div class="container">
-        
-        <div class="section-head">
-          <div class="eyebrow">Curated Collections</div>
-          <h2 class="section-title">Choose Your Sanctuary.</h2>
-          <p class="section-subtitle">
-            Interact with our architectural blueprints below to view floorplate layouts, room orientations, and real-time specifications.
-          </p>
-        </div>
-
-        <div class="floorplan-wrapper">
+      <!-- Architectural Minimap & Compass Widget -->
+      <div class="architectural-minimap">
+        <div class="minimap-title">Spatial Floorplan Twin</div>
+        <svg class="minimap-svg" viewBox="0 0 100 65" xmlns="http://www.w3.org/2000/svg">
+          <!-- House Perimeter CAD Blueprint -->
+          <polygon points="10,10 90,10 90,45 60,45 60,60 10,60" fill="none" stroke="rgba(212, 175, 55, 0.4)" stroke-width="1.5" />
+          <rect x="15" y="15" width="30" height="25" fill="rgba(255, 255, 255, 0.05)" stroke="rgba(255,255,255,0.2)" stroke-width="0.8" />
+          <rect x="50" y="15" width="35" height="25" fill="rgba(0, 242, 254, 0.08)" stroke="rgba(0, 242, 254, 0.4)" stroke-width="0.8" />
+          <rect x="15" y="45" width="40" height="12" fill="rgba(212, 175, 55, 0.08)" stroke="rgba(212, 175, 55, 0.3)" stroke-width="0.8" />
           
-          <!-- Blueprint SVG Visualizer -->
-          <div class="blueprint-visual-card glass-panel">
-            <div class="blueprint-header">
-              <span class="blueprint-tag"><i class="ri-compass-3-line"></i> ARCHITECTURAL BLUEPRINT</span>
-              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--gold-light);">1:100 CAD PRECISION</span>
-            </div>
+          <!-- Dynamic Camera Cone Indicator -->
+          <g id="minimap-cam" class="minimap-cam-indicator" transform="translate(25, 55) rotate(-25)">
+            <circle cx="0" cy="0" r="3.5" fill="#00f2fe" filter="drop-shadow(0 0 4px #00f2fe)" />
+            <polygon points="-5,-4 0,-14 5,-4" fill="rgba(0, 242, 254, 0.4)" />
+          </g>
+        </svg>
+      </div>
 
-            <div class="blueprint-svg-container">
-              <svg id="blueprint-svg" class="blueprint-svg" viewBox="0 0 600 420" xmlns="http://www.w3.org/2000/svg">
-                <!-- Dynamic SVG elements generated by js/floorplan.js -->
-              </svg>
-              <!-- Interactive Hotspot Tooltip -->
-              <div id="hotspot-tooltip" class="hotspot-tooltip">Hover over a point for specs</div>
-            </div>
+    </div>
 
-            <div style="margin-top: 18px; display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted);">
-              <span>• INTERACTIVE SPATIAL HOTSPOTS</span>
-              <span>ESTATEOS SPATIAL TWIN</span>
-            </div>
+    <!-- Mouse Scroll Wheel Prompt -->
+    <div id="scroll-prompt" class="scroll-prompt">
+      <div class="mouse-scroll-wheel"></div>
+      <span>SCROLL TO FLYTHROUGH</span>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       SCROLLYTELLING TRACK: VIRTUAL TRIGGERS & EDITORIAL PANELS
+       ========================================================================= -->
+  <main id="scroll-track" class="scroll-sections-track">
+    
+    <!-- Zone 01: The Monolithic Arrival -->
+    <section class="tour-section-trigger">
+      <div class="container" style="width: 100%;">
+        <div class="tour-card-panel">
+          <div class="eyebrow">Pacific Cliffside Sanctuary</div>
+          <h2>Monolithic Concrete &amp; Cantilevered Glass.</h2>
+          <p>
+            Perched on the ocean promontory, Villa Lumina dissolves the boundary between architecture and nature. Raw board-formed concrete wings float effortlessly over dark granite reflection pools.
+          </p>
+
+          <ul class="room-feature-list">
+            <li class="room-feature-item">
+              <i class="ri-checkbox-circle-fill"></i>
+              <span>14-ft Column-Free Concrete Cantilever</span>
+            </li>
+            <li class="room-feature-item">
+              <i class="ri-checkbox-circle-fill"></i>
+              <span>Biometric Bronze Pivot Entryway</span>
+            </li>
+            <li class="room-feature-item">
+              <i class="ri-checkbox-circle-fill"></i>
+              <span>Submerged Dusk Reflection Pools</span>
+            </li>
+          </ul>
+
+          <div style="display: flex; gap: 12px; align-items: center;">
+            <button id="reel-tour-btn" class="btn-luxury">
+              <i class="ri-play-circle-line"></i>
+              <span>Flythrough Tour [R]</span>
+            </button>
+            <a href="#vip-modal" class="btn-ghost-cyan open-vip-modal">
+              <span>Reserve Estate</span>
+            </a>
           </div>
-
-          <!-- Residence Specs & Selector -->
-          <div class="residence-details-card glass-panel">
-            <div>
-              <!-- Navigation Tabs -->
-              <div class="residence-nav-tabs">
-                <button class="unit-tab-btn active" data-unit="penthouse">Penthouse</button>
-                <button class="unit-tab-btn" data-unit="sky-villa">Sky Villa</button>
-                <button class="unit-tab-btn" data-unit="duplex">Grand Duplex</button>
-                <button class="unit-tab-btn" data-unit="horizon">Horizon Suite</button>
-              </div>
-
-              <!-- Dynamic Unit Header -->
-              <div class="unit-header">
-                <div id="unit-price" class="unit-price">₹28.50 Cr</div>
-                <h3 id="unit-title" class="unit-title">The Apex Triplex Penthouse</h3>
-                <p id="unit-desc" class="unit-desc">
-                  An architectural magnum opus suspended in the clouds. Featuring private elevator biometric access, multi-tier cantilevered infinity pool, and dual-level library.
-                </p>
-              </div>
-
-              <!-- Specs Grid -->
-              <div class="specs-data-grid">
-                <div class="spec-cell">
-                  <span class="spec-label">Total Carpet Area</span>
-                  <span id="spec-area" class="spec-value">8,450 SQ. FT.</span>
-                </div>
-                <div class="spec-cell">
-                  <span class="spec-label">Accommodations</span>
-                  <span id="spec-beds" class="spec-value">5 En-Suite Penthouses</span>
-                </div>
-                <div class="spec-cell">
-                  <span class="spec-label">Ceiling Elevation</span>
-                  <span id="spec-ceiling" class="spec-value">14.5 FT Glass Height</span>
-                </div>
-                <div class="spec-cell">
-                  <span class="spec-label">Building Tier</span>
-                  <span id="spec-elevation" class="spec-value">Level 42–44 (Spire Tier)</span>
-                </div>
-              </div>
-            </div>
-
-            <div style="display: flex; gap: 14px; align-items: center; margin-top: 24px;">
-              <a href="#vip-modal" class="btn-luxury open-vip-modal" style="flex: 1; justify-content: center;">
-                <span>Reserve Residence</span>
-                <i class="ri-shield-check-line"></i>
-              </a>
-              <button id="cam-angle-btn" class="icon-pill-btn" style="padding: 14px 18px;" title="Switch 3D View">
-                <i class="ri-camera-lens-line"></i>
-                <span>DEFAULT</span>
-              </button>
-            </div>
-
-          </div>
-
         </div>
+      </div>
+    </section>
 
+    <!-- Zone 02: The Great Salon -->
+    <section class="tour-section-trigger">
+      <div class="container" style="width: 100%;">
+        <div class="tour-card-panel align-right">
+          <div class="eyebrow" style="color: var(--cyan-laser);">Volumetric Grandeur</div>
+          <h2>24-Ft Soaring Ceilings &amp; Roman Travertine.</h2>
+          <p>
+            The great salon features motorized glass walls that retract seamlessly into wall pockets, merging formal living with the ocean horizon. Anchored by an 8-foot linear flame hearth.
+          </p>
+
+          <ul class="room-feature-list">
+            <li class="room-feature-item">
+              <i class="ri-checkbox-circle-fill" style="color: var(--cyan-laser);"></i>
+              <span>Continuous Honed Travertine Radiant Floors</span>
+            </li>
+            <li class="room-feature-item">
+              <i class="ri-checkbox-circle-fill" style="color: var(--cyan-laser);"></i>
+              <span>Acoustically Isolated Mezzanine Bridge</span>
+            </li>
+            <li class="room-feature-item">
+              <i class="ri-checkbox-circle-fill" style="color: var(--cyan-laser);"></i>
+              <span>Concealed Climate &amp; Lighting Telemetry</span>
+            </li>
+          </ul>
+
+          <button class="btn-luxury open-vip-modal">
+            <span>Explore Great Salon</span>
+            <i class="ri-arrow-right-line"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Zone 03: The Infinity Pool Deck -->
+    <section class="tour-section-trigger">
+      <div class="container" style="width: 100%;">
+        <div class="tour-card-panel">
+          <div class="eyebrow">Zero-Edge Horizon</div>
+          <h2>Suspended Between Fire &amp; Ocean.</h2>
+          <p>
+            A 65-foot zero-edge cantilevered pool juts directly toward the Pacific sunset. Complete with a floating volcanic fire bowl, sunken conversation lounge, and submerged hydromassage loungers.
+          </p>
+
+          <ul class="room-feature-list">
+            <li class="room-feature-item">
+              <i class="ri-checkbox-circle-fill"></i>
+              <span>Cast Volcanic Stone Floating Fire Bowl</span>
+            </li>
+            <li class="room-feature-item">
+              <i class="ri-checkbox-circle-fill"></i>
+              <span>Sunken Radiant-Heated Outdoor Salon</span>
+            </li>
+            <li class="room-feature-item">
+              <i class="ri-checkbox-circle-fill"></i>
+              <span>Saline Filtration with Geothermal Heating</span>
+            </li>
+          </ul>
+
+          <button class="btn-luxury open-vip-modal">
+            <span>Inspect Pool Terrace</span>
+            <i class="ri-arrow-right-line"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Zone 04: The Master Sky Sanctuary -->
+    <section class="tour-section-trigger">
+      <div class="container" style="width: 100%;">
+        <div class="tour-card-panel align-right">
+          <div class="eyebrow" style="color: var(--gold-light);">Private Aerie</div>
+          <h2>Corner Glass Sanctuary Over the Clouds.</h2>
+          <p>
+            Occupying the upper cantilevered wing, the 1,400 sq.ft master suite boasts 270-degree frameless corner glass, fluted architectural white oak millwork, and an integrated EstateOS smart suite hub.
+          </p>
+
+          <ul class="room-feature-list">
+            <li class="room-feature-item">
+              <i class="ri-checkbox-circle-fill"></i>
+              <span>Frameless Butt-Glazed 270° Ocean Vista</span>
+            </li>
+            <li class="room-feature-item">
+              <i class="ri-checkbox-circle-fill"></i>
+              <span>Custom Fluted White Oak Acoustic Paneling</span>
+            </li>
+            <li class="room-feature-item">
+              <i class="ri-checkbox-circle-fill"></i>
+              <span>EstateOS Touchscreen Environmental Automation</span>
+            </li>
+          </ul>
+
+          <button class="btn-luxury open-vip-modal">
+            <span>Schedule Private Walkthrough</span>
+            <i class="ri-arrow-right-line"></i>
+          </button>
+        </div>
       </div>
     </section>
 
     <!-- =========================================================================
-         SECTION 4: ESTATEOS & YUVATHY TECHNOLOGIES PROPTECH ENGINE
+         SECTION 5: ESTATEOS PROPTECH INFRASTRUCTURE
          ========================================================================= -->
-    <section id="proptech" class="section-padding estateos-section">
+    <section id="proptech" class="section-padding estateos-section" style="position: relative; z-index: 10; background: #05070c;">
       <div class="container">
         
         <div class="section-head">
@@ -329,9 +281,9 @@
             <i class="ri-cpu-line"></i>
             <span>POWERED BY ESTATEOS OPERATING SYSTEM</span>
           </div>
-          <h2 class="section-title">The Intelligent Infrastructure Behind the Luxury.</h2>
+          <h2 class="section-title">The Digital Nervous System of Villa Lumina.</h2>
           <p class="section-subtitle">
-            LUMINA is not just concrete and glass. It is fully orchestrated by <strong>EstateOS</strong>—the real estate CRM, ERP, and Meta integration suite developed by Yuvathy Technologies.
+            Villa Lumina is fully orchestrated by <strong>EstateOS</strong>—the real estate CRM, ERP, and Meta marketing automation suite engineered by Yuvathy Technologies.
           </p>
         </div>
 
@@ -341,23 +293,23 @@
             <div class="ecosystem-icon"><i class="ri-advertisement-line"></i></div>
             <h3>Meta Lead Automation</h3>
             <p>
-              High-net-worth buyer inquiries from Instagram and Facebook ads are parsed in 1.4 seconds with automated KYC qualification, NDA dispatch, and VIP scheduling.
-            </p>
-          </div>
-
-          <div class="ecosystem-card">
-            <div class="ecosystem-icon"><i class="ri-hotel-bed-line"></i></div>
-            <h3>Dynamic Inventory Lock</h3>
-            <p>
-              Brokers and international buyers access live unit availability, payment milestones, and token reservations without double-booking risk.
+              High-net-worth buyer inquiries from Instagram and Facebook are captured in real-time with automated NDA delivery, KYC qualification, and private consultation dispatch.
             </p>
           </div>
 
           <div class="ecosystem-card">
             <div class="ecosystem-icon"><i class="ri-shield-keyhole-line"></i></div>
-            <h3>Smart Resident Concierge</h3>
+            <h3>Biometric Access &amp; ERP</h3>
             <p>
-              From visitor clearance and EV hypercharging bays to private helicopter flight scheduling, every operation runs from one calm, unified workspace.
+              From visitor access passes and security staff rotas to geothermal heating analytics, the entire property is managed from one calm, unified workspace.
+            </p>
+          </div>
+
+          <div class="ecosystem-card">
+            <div class="ecosystem-icon"><i class="ri-money-dollar-circle-line"></i></div>
+            <h3>Dynamic Inventory Lock</h3>
+            <p>
+              Brokers and international buyers access live reservation status, payment milestone escrow, and verified CAD architectural blueprints without double-booking risk.
             </p>
           </div>
 
@@ -372,6 +324,7 @@
 
       </div>
     </section>
+
   </main>
 
   <!-- =========================================================================
@@ -384,22 +337,16 @@
       <span>REEL STUDIO HUD</span>
     </div>
 
-    <!-- Play/Stop Auto-Tour -->
-    <button id="reel-tour-btn-dock" class="reel-hud-btn" onclick="document.getElementById('reel-tour-btn').click();">
+    <!-- Play/Stop Auto Flythrough -->
+    <button id="reel-tour-btn-dock" class="reel-hud-btn">
       <i class="ri-play-fill"></i>
-      <span>AUTO TOUR [R]</span>
+      <span>AUTO FLYTHROUGH [R]</span>
     </button>
 
     <!-- Day / Night Toggle -->
     <button class="reel-hud-btn" onclick="document.getElementById('lighting-toggle-btn').click();">
       <i class="ri-sun-cloudy-line"></i>
       <span>THEME [L]</span>
-    </button>
-
-    <!-- Camera Orbit Cycle -->
-    <button class="reel-hud-btn" onclick="document.getElementById('cam-angle-btn').click();">
-      <i class="ri-focus-3-line"></i>
-      <span>CAMERA [C]</span>
     </button>
 
     <!-- Audio Toggle -->
@@ -419,7 +366,7 @@
       <div class="eyebrow" style="margin-bottom: 8px;">Private Access</div>
       <h3 style="font-size: 1.8rem; margin-bottom: 12px;">Reserve a Private Viewing</h3>
       <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 24px;">
-        Exclusive walkthroughs of the Penthouse and Sky Villas are conducted by appointment only. Qualified inquiries are synced directly with EstateOS.
+        Walkthroughs of Villa Lumina are conducted by appointment only. Qualified inquiries are synced directly with EstateOS.
       </p>
 
       <form id="vip-booking-form">
@@ -439,12 +386,12 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label">Residence of Interest</label>
-          <input type="text" class="form-input" value="The Apex Triplex Penthouse (₹28.50 Cr)" readonly>
+          <label class="form-label">Acquisition Interest</label>
+          <input type="text" class="form-input" value="Villa Lumina Estate ($34,500,000 USD / ₹285 Cr)" readonly>
         </div>
 
         <button type="submit" class="btn-luxury" style="width: 100%; justify-content: center; margin-top: 10px;">
-          <span>Submit & Sync with EstateOS</span>
+          <span>Submit &amp; Sync with EstateOS</span>
           <i class="ri-check-line"></i>
         </button>
       </form>
@@ -460,24 +407,24 @@
         
         <div>
           <div class="brand-group" style="margin-bottom: 16px;">
-            <div class="brand-monogram">L</div>
+            <div class="brand-monogram">V</div>
             <div class="brand-info">
-              <span class="brand-title">LUMINA</span>
-              <span class="brand-sub">SKY RESIDENCES</span>
+              <span class="brand-title">VILLA LUMINA</span>
+              <span class="brand-sub">ESTATE ATELIER</span>
             </div>
           </div>
           <p class="footer-brand-bio">
-            An ultra-luxury 3D showcase designed to demonstrate modern web engineering, real-time WebGL interactivity, and seamless real estate management.
+            An ultra-luxury architectural showcase designed to demonstrate modern web engineering, continuous 3D flythrough interactivity, and seamless real estate management.
           </p>
         </div>
 
         <div>
-          <h4 class="footer-col-title">Residences</h4>
+          <h4 class="footer-col-title">Spaces</h4>
           <ul class="footer-links">
-            <li><a href="#residences" class="footer-link">The Apex Penthouse</a></li>
-            <li><a href="#residences" class="footer-link">Celestial Sky Villa</a></li>
-            <li><a href="#residences" class="footer-link">Azure Grand Duplex</a></li>
-            <li><a href="#residences" class="footer-link">Horizon Executive Suite</a></li>
+            <li><a href="#scroll-track" class="footer-link">The Monolithic Arrival</a></li>
+            <li><a href="#scroll-track" class="footer-link">The Great Salon</a></li>
+            <li><a href="#scroll-track" class="footer-link">The Horizon Pool</a></li>
+            <li><a href="#scroll-track" class="footer-link">The Master Sky Sanctuary</a></li>
           </ul>
         </div>
 
@@ -494,7 +441,7 @@
         <div>
           <h4 class="footer-col-title">Private Inquiries</h4>
           <p style="color: var(--text-secondary); font-size: 0.88rem; line-height: 1.6; margin-bottom: 16px;">
-            Sales Gallery: Level 18, Vanguard Tower, Bengaluru, Karnataka, India.
+            Atelier Gallery: Level 18, Vanguard Tower, Bengaluru, Karnataka, India.
           </p>
           <a href="mailto:hello@yuvathy.in" class="footer-link" style="color: var(--gold-light);">hello@yuvathy.in</a>
         </div>
@@ -504,7 +451,7 @@
       <!-- Attribution Bar -->
       <div class="attribution-bar">
         <div>
-          &copy; 2026 LUMINA Sky Residences. Built by <a href="https://yuvathy.in" target="_blank" rel="noopener noreferrer">Yuvathy Technologies</a>.
+          &copy; 2026 Villa Lumina. Designed &amp; Built by <a href="https://yuvathy.in" target="_blank" rel="noopener noreferrer">Yuvathy Technologies</a>.
         </div>
         <div>
           Powered by <a href="https://estateos.yuvathy.in" target="_blank" rel="noopener noreferrer">EstateOS Real Estate Workspace</a>.
@@ -513,12 +460,8 @@
     </div>
   </footer>
 
-  <!-- Three.js CDN with failover -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
   <!-- Application Scripts -->
-  <script src="js/three-scene.js"></script>
-  <script src="js/floorplan.js"></script>
+  <script src="js/tour-engine.js"></script>
   <script src="js/audio.js"></script>
   <script src="js/reel-tour.js"></script>
   <script src="js/main.js"></script>
