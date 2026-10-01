@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VILLA ATELIER | Continuous 3D Architectural Walkthrough</title>
+  <title>VILLA ATELIER | True 3D Architectural WebGL Walkthrough</title>
   
-  <meta name="description" content="An unbroken 3D architectural flythrough from driveway entrance to master sanctuary with interactive floorplan waypoints. Engineered by Yuvathy Technologies and operated on EstateOS.">
-  <meta name="theme-color" content="#020306">
+  <meta name="description" content="A real-time 3D computed Three.js architectural walkthrough of an ultra-luxury modern mansion from approach to master suite. Engineered by Yuvathy Technologies and operated on EstateOS.">
+  <meta name="theme-color" content="#04060b">
 
   <!-- Google Fonts: Luxury Serif, Technical Mono & Modern Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,7 +32,7 @@
   <div id="reel-progress-bar" class="reel-progress-bar"></div>
 
   <!-- =========================================================================
-       CLEAN MINIMALIST HEADER
+       CLEAN MINIMALIST LUXURY HEADER
        ========================================================================= -->
   <header class="site-header">
     <div class="container nav-container">
@@ -43,16 +43,15 @@
         <span class="brand-title">VILLA ATELIER</span>
       </a>
 
-      <!-- Curated Estate Switcher (Center) -->
-      <nav aria-label="Curated Estates">
-        <div class="estate-switcher">
-          <button class="estate-switch-btn active" data-estate="promontory">The Promontory Villa</button>
-          <button class="estate-switch-btn" data-estate="alpine">The Forest Pavilion</button>
-        </div>
-      </nav>
-
       <!-- Minimal Utility & CTA -->
       <div class="nav-actions">
+        <!-- Day/Night Lighting Mode Toggle -->
+        <button id="lighting-toggle-btn" class="icon-pill-btn" aria-label="Toggle Lighting">
+          <i class="ri-sun-moon-line"></i>
+          <span>MIDNIGHT</span>
+        </button>
+
+        <!-- Web Audio Synthesizer Toggle -->
         <button id="sound-toggle-btn" class="icon-pill-btn" aria-label="Toggle Sound">
           <i class="ri-volume-mute-line sound-icon"></i>
           <span class="sound-label">SOUND: OFF</span>
@@ -68,23 +67,24 @@
   </header>
 
   <!-- =========================================================================
-       CONTINUOUS 3D VILLA FLYTHROUGH VIEWPORT (FIXED FULLSCREEN)
+       REAL-TIME 3D THREE.JS WEBGL VIEWPORT (FIXED FULLSCREEN)
+       Physical 3D modeled house with 3D camera spline walkthrough
        ========================================================================= -->
   <div class="tour-viewport">
-    <canvas id="tour-canvas"></canvas>
+    <canvas id="villa-3d-canvas"></canvas>
     <div class="cinematic-vignette"></div>
   </div>
 
   <!-- Minimal Room Location Indicator (Bottom Left) -->
   <div class="minimal-room-indicator">
     <span class="indicator-zone">01 / APPROACH</span>
-    <div class="indicator-title">The Monolithic Arrival</div>
-    <div class="indicator-specs">14,500 SQ. FT. • PRE-STRESSED CONCRETE &amp; GLASS</div>
+    <div class="indicator-title">The Entry Approach</div>
+    <div class="indicator-specs">14,500 SQ. FT. • CONCRETE &amp; GLASS RESIDENCE</div>
   </div>
 
   <!-- =========================================================================
        INTERACTIVE ARCHITECTURAL HOUSE MAP & WAYPOINTS (Bottom Right)
-       Click any room node to glide directly to that space
+       Click any room node to glide the 3D camera directly into that space
        ========================================================================= -->
   <aside class="house-map-widget" aria-label="Interactive Architectural Floorplan Map">
     <div class="house-map-header">
@@ -96,71 +96,299 @@
     </div>
     
     <svg id="house-map-svg" class="house-map-svg" viewBox="0 0 250 120" xmlns="http://www.w3.org/2000/svg">
-      <!-- Generated dynamically by js/tour-engine.js -->
+      <!-- House Floorplan Walking Path Vector -->
+      <path d="M 30 100 L 68 90 L 110 75 L 160 60 L 215 50 L 180 18" fill="none" stroke="rgba(212, 175, 55, 0.35)" stroke-width="1.8" stroke-dasharray="3,3" />
+      <path id="map-active-path" d="M 30 100 L 68 90 L 110 75 L 160 60 L 215 50 L 180 18" fill="none" stroke="#00f2fe" stroke-width="2" stroke-dasharray="250" stroke-dashoffset="250" />
+      
+      <!-- Interactive Clickable Waypoint Nodes -->
+      <g class="map-node active" data-t="0.00" transform="translate(30, 100)">
+        <circle class="node-bg" r="7" />
+        <circle class="node-core" r="3" />
+        <text x="12" y="3">Approach</text>
+      </g>
+
+      <g class="map-node" data-t="0.20" transform="translate(68, 90)">
+        <circle class="node-bg" r="7" />
+        <circle class="node-core" r="3" />
+        <text x="12" y="3">Pivot Door</text>
+      </g>
+
+      <g class="map-node" data-t="0.40" transform="translate(110, 75)">
+        <circle class="node-bg" r="7" />
+        <circle class="node-core" r="3" />
+        <text x="12" y="3">Grand Foyer</text>
+      </g>
+
+      <g class="map-node" data-t="0.60" transform="translate(160, 60)">
+        <circle class="node-bg" r="7" />
+        <circle class="node-core" r="3" />
+        <text x="12" y="3">Great Salon</text>
+      </g>
+
+      <g class="map-node" data-t="0.80" transform="translate(215, 50)">
+        <circle class="node-bg" r="7" />
+        <circle class="node-core" r="3" />
+        <text x="12" y="3">Pool Deck</text>
+      </g>
+
+      <g class="map-node" data-t="1.00" transform="translate(180, 18)">
+        <circle class="node-bg" r="7" />
+        <circle class="node-core" r="3" />
+        <text x="12" y="3">Master Suite</text>
+      </g>
+
+      <!-- Dynamic Drone Traveler Pin -->
+      <g id="map-traveler-pin" transform="translate(30, 100)">
+        <circle r="12" fill="none" stroke="#00f2fe" stroke-width="1.2" opacity="0.6">
+          <animate attributeName="r" values="6;14;6" dur="2.2s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0.8;0.2;0.8" dur="2.2s" repeatCount="indefinite" />
+        </circle>
+        <circle r="4" fill="#00f2fe" filter="drop-shadow(0 0 4px #00f2fe)" />
+      </g>
     </svg>
   </aside>
 
   <!-- =========================================================================
        SCROLLYTELLING TRACK: VIRTUAL TRIGGERS & EDITORIAL PANELS
+       Camera spline in Three.js responds continuously to scroll position
        ========================================================================= -->
   <main id="scroll-track" class="scroll-sections-track">
-    <!-- Populated dynamically by VillaTourEngine based on selected estate -->
-  </main>
+    
+    <!-- Zone 01: Arrival Approach -->
+    <section class="tour-section-trigger" data-t="0.00">
+      <div class="container" style="width: 100%;">
+        <div class="tour-card-panel">
+          <div class="eyebrow">THE PROMONTORY VILLA • 01 / APPROACH</div>
+          <h2>The Monolithic Arrival.</h2>
+          <p>
+            Hovering above dark granite reflection pools, pre-stressed cantilevered concrete slabs frame the open horizon as you approach along the private stone driveway.
+          </p>
 
-  <!-- =========================================================================
-       ESTATEOS PROPTECH INFRASTRUCTURE
-       ========================================================================= -->
-  <section id="proptech" class="section-padding estateos-section" style="position: relative; z-index: 10;">
-    <div class="container">
-      
-      <div class="section-head">
-        <div class="estateos-badge-chip">
-          <i class="ri-cpu-line"></i>
-          <span>OPERATED VIA ESTATEOS</span>
+          <div class="estate-specs-row">
+            <div class="estate-spec-item">
+              <span class="label">Carpet Area</span>
+              <span class="val">14,500 SQ. FT.</span>
+            </div>
+            <div class="estate-spec-item">
+              <span class="label">Accommodations</span>
+              <span class="val">5 Suites • 7 Baths</span>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 12px; align-items: center;">
+            <button id="reel-tour-btn" class="btn-luxury">
+              <i class="ri-play-circle-line"></i>
+              <span>Walkthrough Tour [R]</span>
+            </button>
+            <a href="#vip-modal" class="btn-ghost-cyan open-vip-modal">
+              <span>Reserve Estate</span>
+            </a>
+          </div>
         </div>
-        <h2 class="section-title">Intelligent Infrastructure for Modern Estates.</h2>
-        <p class="section-subtitle">
-          Every residence in Villa Atelier runs on <strong>EstateOS</strong>—the real estate CRM, ERP, and Meta marketing integration suite engineered by Yuvathy Technologies.
-        </p>
       </div>
+    </section>
 
-      <div class="estateos-card-grid">
+    <!-- Zone 02: Threshold -->
+    <section class="tour-section-trigger" data-t="0.20">
+      <div class="container" style="width: 100%;">
+        <div class="tour-card-panel align-right">
+          <div class="eyebrow">THE PROMONTORY VILLA • 02 / THRESHOLD</div>
+          <h2>The Pivot Entryway.</h2>
+          <p>
+            Crossing the monolithic travertine bridge over reflection waters directly toward the massive 12-ft architectural bronze pivot door, slightly ajar to reveal the glowing interior.
+          </p>
+
+          <div class="estate-specs-row">
+            <div class="estate-spec-item">
+              <span class="label">Entrance Door</span>
+              <span class="val">12-Ft Bronze Pivot</span>
+            </div>
+            <div class="estate-spec-item">
+              <span class="label">Water Mirror</span>
+              <span class="val">Dark Granite Pool</span>
+            </div>
+          </div>
+
+          <button class="btn-luxury open-vip-modal">
+            <span>Inquire About Space</span>
+            <i class="ri-arrow-right-line"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Zone 03: Grand Foyer -->
+    <section class="tour-section-trigger" data-t="0.40">
+      <div class="container" style="width: 100%;">
+        <div class="tour-card-panel">
+          <div class="eyebrow">THE PROMONTORY VILLA • 03 / FOYER</div>
+          <h2>The Grand Foyer &amp; Staircase.</h2>
+          <p>
+            Stepping through the threshold into the double-height travertine foyer. A sculptural curved dark bronze staircase sweeps upward with concealed LED step illumination.
+          </p>
+
+          <div class="estate-specs-row">
+            <div class="estate-spec-item">
+              <span class="label">Architectural Stair</span>
+              <span class="val">Curved Dark Bronze</span>
+            </div>
+            <div class="estate-spec-item">
+              <span class="label">Flooring</span>
+              <span class="val">Honed Roman Travertine</span>
+            </div>
+          </div>
+
+          <button class="btn-luxury open-vip-modal">
+            <span>Inspect Foyer</span>
+            <i class="ri-arrow-right-line"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Zone 04: Great Salon -->
+    <section class="tour-section-trigger" data-t="0.60">
+      <div class="container" style="width: 100%;">
+        <div class="tour-card-panel align-right">
+          <div class="eyebrow">THE PROMONTORY VILLA • 04 / GREAT SALON</div>
+          <h2>The Great Living Salon.</h2>
+          <p>
+            Entering the 24-ft double-height living room beside an 8-ft floating linear flame fireplace. Floor-to-ceiling motorized glass pocket walls retract seamlessly to the terrace.
+          </p>
+
+          <div class="estate-specs-row">
+            <div class="estate-spec-item">
+              <span class="label">Ceiling Height</span>
+              <span class="val">24-Ft Double Height</span>
+            </div>
+            <div class="estate-spec-item">
+              <span class="label">Linear Hearth</span>
+              <span class="val">8-Ft Floating Fireplace</span>
+            </div>
+          </div>
+
+          <button class="btn-luxury open-vip-modal">
+            <span>Inspect Living Salon</span>
+            <i class="ri-arrow-right-line"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Zone 05: Pool Terrace -->
+    <section class="tour-section-trigger" data-t="0.80">
+      <div class="container" style="width: 100%;">
+        <div class="tour-card-panel">
+          <div class="eyebrow">THE PROMONTORY VILLA • 05 / POOL TERRACE</div>
+          <h2>The Horizon Infinity Terrace.</h2>
+          <p>
+            Gliding out onto the cantilevered zero-edge saline pool deck overlooking the Pacific ocean sunset, featuring a floating volcanic stone fire bowl and sunken conversation pit.
+          </p>
+
+          <div class="estate-specs-row">
+            <div class="estate-spec-item">
+              <span class="label">Pool Dimension</span>
+              <span class="val">65-Ft Cantilevered</span>
+            </div>
+            <div class="estate-spec-item">
+              <span class="label">Fire Element</span>
+              <span class="val">Cast Volcanic Bowl</span>
+            </div>
+          </div>
+
+          <button class="btn-luxury open-vip-modal">
+            <span>Inspect Terrace</span>
+            <i class="ri-arrow-right-line"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Zone 06: Master Sky Sanctuary -->
+    <section class="tour-section-trigger" data-t="1.00">
+      <div class="container" style="width: 100%;">
+        <div class="tour-card-panel align-right">
+          <div class="eyebrow">THE PROMONTORY VILLA • 06 / MASTER SUITE</div>
+          <h2>The Master Sky Sanctuary.</h2>
+          <p>
+            Ascending into the cantilevered upper wing into the private master bedroom. Frameless butt-glazed corner glass walls dissolve into the evening horizon.
+          </p>
+
+          <div class="estate-specs-row">
+            <div class="estate-spec-item">
+              <span class="label">Suite Area</span>
+              <span class="val">1,400 SQ. FT.</span>
+            </div>
+            <div class="estate-spec-item">
+              <span class="label">Glazing</span>
+              <span class="val">270° Corner Frameless</span>
+            </div>
+          </div>
+
+          <button class="btn-luxury open-vip-modal">
+            <span>Schedule Private Walkthrough</span>
+            <i class="ri-arrow-right-line"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 7: ESTATEOS PROPTECH INFRASTRUCTURE
+         ========================================================================= -->
+    <section id="proptech" class="section-padding estateos-section" style="position: relative; z-index: 10;">
+      <div class="container">
         
-        <div class="ecosystem-card">
-          <div class="ecosystem-icon"><i class="ri-advertisement-line"></i></div>
-          <h3>Meta Lead Automation</h3>
-          <p>
-            High-net-worth buyer inquiries from Instagram and Facebook are captured in real-time with automated NDA delivery, KYC qualification, and private consultation dispatch.
+        <div class="section-head">
+          <div class="estateos-badge-chip">
+            <i class="ri-cpu-line"></i>
+            <span>OPERATED VIA ESTATEOS</span>
+          </div>
+          <h2 class="section-title">Intelligent Infrastructure for Modern Estates.</h2>
+          <p class="section-subtitle">
+            Every residence in Villa Atelier runs on <strong>EstateOS</strong>—the real estate CRM, ERP, and Meta marketing integration suite engineered by Yuvathy Technologies.
           </p>
         </div>
 
-        <div class="ecosystem-card">
-          <div class="ecosystem-icon"><i class="ri-shield-keyhole-line"></i></div>
-          <h3>Biometric Access &amp; ERP</h3>
-          <p>
-            From visitor access passes and security staff rotas to geothermal heating analytics, the entire property is managed from one calm, unified workspace.
-          </p>
+        <div class="estateos-card-grid">
+          
+          <div class="ecosystem-card">
+            <div class="ecosystem-icon"><i class="ri-advertisement-line"></i></div>
+            <h3>Meta Lead Automation</h3>
+            <p>
+              High-net-worth buyer inquiries from Instagram and Facebook are captured in real-time with automated NDA delivery, KYC qualification, and private consultation dispatch.
+            </p>
+          </div>
+
+          <div class="ecosystem-card">
+            <div class="ecosystem-icon"><i class="ri-shield-keyhole-line"></i></div>
+            <h3>Biometric Access &amp; ERP</h3>
+            <p>
+              From visitor access passes and security staff rotas to geothermal heating analytics, the entire property is managed from one calm, unified workspace.
+            </p>
+          </div>
+
+          <div class="ecosystem-card">
+            <div class="ecosystem-icon"><i class="ri-money-dollar-circle-line"></i></div>
+            <h3>Dynamic Inventory Lock</h3>
+            <p>
+              Brokers and international buyers access live reservation status, payment milestone escrow, and verified CAD architectural blueprints without double-booking risk.
+            </p>
+          </div>
+
         </div>
 
-        <div class="ecosystem-card">
-          <div class="ecosystem-icon"><i class="ri-money-dollar-circle-line"></i></div>
-          <h3>Dynamic Inventory Lock</h3>
-          <p>
-            Brokers and international buyers access live reservation status, payment milestone escrow, and verified CAD architectural blueprints without double-booking risk.
-          </p>
+        <div style="text-align: center; margin-top: 48px;">
+          <a href="https://estateos.yuvathy.in" target="_blank" rel="noopener noreferrer" class="btn-ghost-cyan">
+            <span>Explore EstateOS Platform</span>
+            <i class="ri-external-link-line"></i>
+          </a>
         </div>
 
       </div>
+    </section>
 
-      <div style="text-align: center; margin-top: 48px;">
-        <a href="https://estateos.yuvathy.in" target="_blank" rel="noopener noreferrer" class="btn-ghost-cyan">
-          <span>Explore EstateOS Platform</span>
-          <i class="ri-external-link-line"></i>
-        </a>
-      </div>
-
-    </div>
-  </section>
+  </main>
 
   <!-- =========================================================================
        VIP BOOKING MODAL
@@ -217,15 +445,19 @@
             <span class="brand-title">VILLA ATELIER</span>
           </div>
           <p class="footer-brand-bio">
-            An ultra-luxury architectural showcase designed to demonstrate modern web engineering, continuous 3D flythrough interactivity, and seamless real estate management.
+            An ultra-luxury architectural showcase designed to demonstrate modern web engineering, real-time 3D WebGL walkthroughs, and seamless real estate management.
           </p>
         </div>
 
         <div>
-          <h4 class="footer-col-title">Estates</h4>
+          <h4 class="footer-col-title">Spaces</h4>
           <ul class="footer-links">
-            <li><a href="#scroll-track" class="footer-link">The Promontory Villa (Pacific)</a></li>
-            <li><a href="#scroll-track" class="footer-link">The Forest Pavilion (Aspen)</a></li>
+            <li><a href="#scroll-track" class="footer-link">The Monolithic Arrival</a></li>
+            <li><a href="#scroll-track" class="footer-link">The Pivot Entryway</a></li>
+            <li><a href="#scroll-track" class="footer-link">The Grand Foyer</a></li>
+            <li><a href="#scroll-track" class="footer-link">The Great Salon</a></li>
+            <li><a href="#scroll-track" class="footer-link">The Horizon Pool</a></li>
+            <li><a href="#scroll-track" class="footer-link">The Master Sky Sanctuary</a></li>
           </ul>
         </div>
 
@@ -253,8 +485,11 @@
     </div>
   </footer>
 
+  <!-- Three.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
   <!-- Application Scripts -->
-  <script src="js/tour-engine.js"></script>
+  <script src="js/three-villa.js"></script>
   <script src="js/audio.js"></script>
   <script src="js/reel-tour.js"></script>
   <script src="js/main.js"></script>

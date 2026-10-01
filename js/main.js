@@ -1,18 +1,19 @@
 /* ==========================================================================
-   LUMINA VILLA - MAIN APPLICATION CONTROLLER
+   VILLA ATELIER - MAIN APPLICATION CONTROLLER
+   Coordinates Real-Time 3D WebGL Villa, Audio Synthesizer, and Tour
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
   // 1. Initialize Custom Smooth Cursor Glow
   setupCursor();
 
-  // 2. Initialize 3D Photorealistic Villa Flythrough Engine
+  // 2. Initialize True 3D Architectural Villa Engine (Three.js WebGL)
   try {
-    if (window.VillaTourEngine) {
-      window.luminaTour = new window.VillaTourEngine();
+    if (typeof THREE !== 'undefined' && window.TrueVilla3DEngine) {
+      window.villa3D = new window.TrueVilla3DEngine('villa-3d-canvas');
     }
   } catch (err) {
-    console.error('Failed to initialize Villa Tour Engine:', err);
+    console.error('Failed to initialize True 3D Villa Engine:', err);
   }
 
   // 3. Initialize Procedural Audio Synthesizer
@@ -24,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error('Failed to initialize audio engine:', err);
   }
 
-  // 4. Initialize Cinematic Reel Flythrough Director
+  // 4. Initialize Cinematic Reel Walkthrough Director
   try {
     if (window.CinematicReelDirector) {
       window.luminaDirector = new window.CinematicReelDirector();
@@ -33,22 +34,11 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error('Failed to initialize reel director:', err);
   }
 
-  // 5. Header Scroll Effects & Smooth Navigation
+  // 5. Header Scroll Effects & Lighting Toggle
   setupHeader();
 
   // 6. VIP Booking Modal & Form Handlers
   setupVipModal();
-
-  // Hide scroll prompt on scroll
-  const scrollPrompt = document.getElementById('scroll-prompt');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 120 && scrollPrompt) {
-      scrollPrompt.style.opacity = '0';
-      scrollPrompt.style.pointerEvents = 'none';
-    } else if (scrollPrompt && (!window.luminaDirector || !window.luminaDirector.isPlaying)) {
-      scrollPrompt.style.opacity = '0.9';
-    }
-  });
 });
 
 /* --- Custom Cursor Follower --- */
@@ -68,7 +58,7 @@ function setupCursor() {
     cursorFollower.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
   });
 
-  const interactiveElements = document.querySelectorAll('a, button, input, .room-nav-btn, .live-hotspot, .tour-card-panel');
+  const interactiveElements = document.querySelectorAll('a, button, input, .map-node, .tour-card-panel');
   interactiveElements.forEach(el => {
     el.addEventListener('mouseenter', () => {
       cursorFollower.classList.add('active');
@@ -79,31 +69,34 @@ function setupCursor() {
   });
 }
 
-/* --- Header Sticky & Active Link Spy --- */
+/* --- Header Sticky & Lighting Toggle --- */
 function setupHeader() {
   const header = document.querySelector('.site-header');
-  if (!header) return;
-
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 40) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
-  });
-
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      const targetId = this.getAttribute('href');
-      if (targetId && targetId !== '#') {
-        const targetEl = document.querySelector(targetId);
-        if (targetEl) {
-          e.preventDefault();
-          targetEl.scrollIntoView({ behavior: 'smooth' });
-        }
+  if (header) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 40) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
       }
     });
-  });
+  }
+
+  // Lighting Mode Button
+  const lightingBtn = document.getElementById('lighting-toggle-btn');
+  if (lightingBtn) {
+    lightingBtn.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'midnight';
+      const newTheme = currentTheme === 'midnight' ? 'golden-hour' : 'midnight';
+      document.documentElement.setAttribute('data-theme', newTheme);
+
+      const label = lightingBtn.querySelector('span');
+      if (label) label.textContent = newTheme === 'midnight' ? 'MIDNIGHT' : 'GOLDEN HOUR';
+
+      if (window.villa3D) window.villa3D.setTheme(newTheme);
+      if (window.luminaAudio) window.luminaAudio.playClick();
+    });
+  }
 }
 
 /* --- VIP Modal Handlers --- */
