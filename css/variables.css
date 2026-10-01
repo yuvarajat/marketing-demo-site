@@ -1,0 +1,70 @@
+/* ==========================================================================
+   LUMINA RESIDENCES - DESIGN SYSTEM VARIABLES
+   Tailored for High-Contrast MacBook Dark-Room Filming
+   ========================================================================== */
+
+:root {
+  /* Color Palette */
+  --bg-deep: #05070c;
+  --bg-surface: #0a0e17;
+  --bg-surface-elevated: #111726;
+  --bg-card: rgba(16, 23, 38, 0.65);
+  --bg-card-hover: rgba(26, 36, 60, 0.8);
+  --glass-border: rgba(212, 175, 55, 0.18);
+  --glass-border-hover: rgba(212, 175, 55, 0.4);
+  --glass-highlight: rgba(255, 255, 255, 0.08);
+
+  /* Luxury Accents */
+  --gold-primary: #d4af37;
+  --gold-light: #f3e5ab;
+  --gold-gradient: linear-gradient(135deg, #f9e8a2 0%, #d4af37 50%, #aa8214 100%);
+  --cyan-laser: #00f2fe;
+  --cyan-glow: rgba(0, 242, 254, 0.35);
+  --emerald-accent: #10b981;
+  
+  /* Text & Hierarchy */
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-gold: #e6ca65;
+
+  /* Typography */
+  --font-display: 'Cinzel', 'Cormorant Garamond', 'Playfair Display', serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+
+  /* Elevations & Glows */
+  --glow-gold: 0 0 35px rgba(212, 175, 55, 0.25);
+  --glow-gold-intense: 0 0 50px rgba(212, 175, 55, 0.5);
+  --glow-cyan: 0 0 30px rgba(0, 242, 254, 0.3);
+  --shadow-card: 0 20px 50px -10px rgba(0, 0, 0, 0.8), 0 0 1px 1px rgba(255, 255, 255, 0.05);
+
+  /* Transitions */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-smooth: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 0.25s;
+  --duration-normal: 0.45s;
+  --duration-slow: 0.8s;
+
+  /* Dimensions */
+  --header-height: 80px;
+  --container-max: 1360px;
+  --container-padding: 32px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+  --radius-pill: 9999px;
+}
+
+/* Day Mode / Golden Hour Variant */
+[data-theme="golden-hour"] {
+  --bg-deep: #0c0a08;
+  --bg-surface: #17130e;
+  --bg-surface-elevated: #241d15;
+  --bg-card: rgba(36, 29, 21, 0.7);
+  --glass-border: rgba(243, 229, 171, 0.25);
+  --gold-primary: #e6b800;
+  --gold-light: #fff2a3;
+  --cyan-laser: #ffb703;
+  --glow-gold: 0 0 45px rgba(230, 184, 0, 0.35);
+}
