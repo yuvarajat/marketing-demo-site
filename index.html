@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VILLA ATELIER | Curated 3D Architectural Estates</title>
+  <title>VILLA ATELIER | Continuous 3D Architectural Walkthrough</title>
   
-  <meta name="description" content="A continuous 3D architectural flythrough of curated luxury residences. Engineered by Yuvathy Technologies and operated on EstateOS.">
+  <meta name="description" content="An unbroken 3D architectural flythrough from driveway entrance to master sanctuary with interactive floorplan waypoints. Engineered by Yuvathy Technologies and operated on EstateOS.">
   <meta name="theme-color" content="#020306">
 
   <!-- Google Fonts: Luxury Serif, Technical Mono & Modern Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Remix Icons CDN -->
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
@@ -68,208 +68,99 @@
   </header>
 
   <!-- =========================================================================
-       CINEMATIC 3D VILLA FLYTHROUGH VIEWPORT (FIXED FULLSCREEN)
+       CONTINUOUS 3D VILLA FLYTHROUGH VIEWPORT (FIXED FULLSCREEN)
        ========================================================================= -->
   <div class="tour-viewport">
     <canvas id="tour-canvas"></canvas>
     <div class="cinematic-vignette"></div>
   </div>
 
-  <!-- Minimal Bottom-Left Room Indicator -->
+  <!-- Minimal Room Location Indicator (Bottom Left) -->
   <div class="minimal-room-indicator">
-    <span class="indicator-zone">01 / FACADE</span>
+    <span class="indicator-zone">01 / APPROACH</span>
     <div class="indicator-title">The Monolithic Arrival</div>
-    <div class="indicator-specs">14,500 SQ. FT. • BOARD-FORMED CONCRETE &amp; GLASS</div>
+    <div class="indicator-specs">14,500 SQ. FT. • PRE-STRESSED CONCRETE &amp; GLASS</div>
   </div>
 
-  <!-- Minimal Bottom-Right Scroll Wheel Prompt -->
-  <div id="scroll-prompt" class="scroll-prompt">
-    <div class="mouse-scroll-wheel"></div>
-    <span>SCROLL TO WALK THROUGH</span>
-  </div>
+  <!-- =========================================================================
+       INTERACTIVE ARCHITECTURAL HOUSE MAP & WAYPOINTS (Bottom Right)
+       Click any room node to glide directly to that space
+       ========================================================================= -->
+  <aside class="house-map-widget" aria-label="Interactive Architectural Floorplan Map">
+    <div class="house-map-header">
+      <div class="house-map-title">
+        <span class="house-map-pulse"></span>
+        <span>Spatial Floorplan Path</span>
+      </div>
+      <span class="house-map-subtitle">Click node to inspect</span>
+    </div>
+    
+    <svg id="house-map-svg" class="house-map-svg" viewBox="0 0 250 120" xmlns="http://www.w3.org/2000/svg">
+      <!-- Generated dynamically by js/tour-engine.js -->
+    </svg>
+  </aside>
 
   <!-- =========================================================================
        SCROLLYTELLING TRACK: VIRTUAL TRIGGERS & EDITORIAL PANELS
        ========================================================================= -->
   <main id="scroll-track" class="scroll-sections-track">
-    
-    <!-- Zone 01: Arrival / Facade -->
-    <section class="tour-section-trigger">
-      <div class="container" style="width: 100%;">
-        <div class="tour-card-panel">
-          <div class="eyebrow">THE PROMONTORY VILLA • 01 / FACADE</div>
-          <h2>The Monolithic Arrival.</h2>
-          <p>
-            Pre-stressed concrete cantilevered wings hovering 14ft above dark granite reflection pools, anchored by an architectural 12-ft bronze pivot entryway.
-          </p>
-
-          <div class="estate-specs-row">
-            <div class="estate-spec-item">
-              <span class="label">Carpet Area</span>
-              <span class="val spec-val-area">14,500 SQ. FT.</span>
-            </div>
-            <div class="estate-spec-item">
-              <span class="label">Accommodations</span>
-              <span class="val spec-val-beds">5 Suites • 7 Baths</span>
-            </div>
-          </div>
-
-          <div style="display: flex; gap: 12px; align-items: center;">
-            <button id="reel-tour-btn" class="btn-luxury">
-              <i class="ri-play-circle-line"></i>
-              <span>Flythrough Tour [R]</span>
-            </button>
-            <a href="#vip-modal" class="btn-ghost-cyan open-vip-modal">
-              <span>Reserve Estate</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Zone 02: Great Room & Atrium -->
-    <section class="tour-section-trigger">
-      <div class="container" style="width: 100%;">
-        <div class="tour-card-panel align-right">
-          <div class="eyebrow">THE PROMONTORY VILLA • 02 / GREAT ROOM</div>
-          <h2>The Great Salon &amp; Hearth.</h2>
-          <p>
-            Floor-to-ceiling motorized glass pocket walls retract completely, merging formal living with the Pacific horizon beside an 8-ft floating linear hearth.
-          </p>
-
-          <div class="estate-specs-row">
-            <div class="estate-spec-item">
-              <span class="label">Ceiling Height</span>
-              <span class="val">24-Ft Double Height</span>
-            </div>
-            <div class="estate-spec-item">
-              <span class="label">Flooring</span>
-              <span class="val">Honed Roman Travertine</span>
-            </div>
-          </div>
-
-          <button class="btn-luxury open-vip-modal">
-            <span>Inquire About Space</span>
-            <i class="ri-arrow-right-line"></i>
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Zone 03: Pool Terrace / Spa -->
-    <section class="tour-section-trigger">
-      <div class="container" style="width: 100%;">
-        <div class="tour-card-panel">
-          <div class="eyebrow">THE PROMONTORY VILLA • 03 / HORIZON POOL</div>
-          <h2>The Infinity Edge Terrace.</h2>
-          <p>
-            A cantilevered saline pool jutting into the sunset horizon, featuring a floating volcanic stone fire bowl and sunken radiant conversation lounge.
-          </p>
-
-          <div class="estate-specs-row">
-            <div class="estate-spec-item">
-              <span class="label">Pool Dimension</span>
-              <span class="val">65-Ft Cantilevered</span>
-            </div>
-            <div class="estate-spec-item">
-              <span class="label">Water Element</span>
-              <span class="val">Saline Zero-Edge</span>
-            </div>
-          </div>
-
-          <button class="btn-luxury open-vip-modal">
-            <span>Inspect Terrace</span>
-            <i class="ri-arrow-right-line"></i>
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Zone 04: Master Sanctuary -->
-    <section class="tour-section-trigger">
-      <div class="container" style="width: 100%;">
-        <div class="tour-card-panel align-right">
-          <div class="eyebrow">THE PROMONTORY VILLA • 04 / MASTER SUITE</div>
-          <h2>The Master Sky Sanctuary.</h2>
-          <p>
-            Frameless corner glass walls open to twilight sea views, flanked by custom fluted white oak acoustic millwork and integrated EstateOS environmental controls.
-          </p>
-
-          <div class="estate-specs-row">
-            <div class="estate-spec-item">
-              <span class="label">Suite Area</span>
-              <span class="val">1,400 SQ. FT.</span>
-            </div>
-            <div class="estate-spec-item">
-              <span class="label">Glazing</span>
-              <span class="val">270° Frameless Corner</span>
-            </div>
-          </div>
-
-          <button class="btn-luxury open-vip-modal">
-            <span>Schedule Private Viewing</span>
-            <i class="ri-arrow-right-line"></i>
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================================================================
-         SECTION 5: ESTATEOS PROPTECH INFRASTRUCTURE
-         ========================================================================= -->
-    <section id="proptech" class="section-padding estateos-section" style="position: relative; z-index: 10;">
-      <div class="container">
-        
-        <div class="section-head">
-          <div class="estateos-badge-chip">
-            <i class="ri-cpu-line"></i>
-            <span>OPERATED VIA ESTATEOS</span>
-          </div>
-          <h2 class="section-title">Intelligent Infrastructure for Modern Estates.</h2>
-          <p class="section-subtitle">
-            Every residence in Villa Atelier runs on <strong>EstateOS</strong>—the real estate CRM, ERP, and Meta marketing integration suite engineered by Yuvathy Technologies.
-          </p>
-        </div>
-
-        <div class="estateos-card-grid">
-          
-          <div class="ecosystem-card">
-            <div class="ecosystem-icon"><i class="ri-advertisement-line"></i></div>
-            <h3>Meta Lead Automation</h3>
-            <p>
-              High-net-worth buyer inquiries from Instagram and Facebook are captured in real-time with automated NDA delivery, KYC qualification, and private consultation dispatch.
-            </p>
-          </div>
-
-          <div class="ecosystem-card">
-            <div class="ecosystem-icon"><i class="ri-shield-keyhole-line"></i></div>
-            <h3>Biometric Access &amp; ERP</h3>
-            <p>
-              From visitor access passes and security staff rotas to geothermal heating analytics, the entire property is managed from one calm, unified workspace.
-            </p>
-          </div>
-
-          <div class="ecosystem-card">
-            <div class="ecosystem-icon"><i class="ri-money-dollar-circle-line"></i></div>
-            <h3>Dynamic Inventory Lock</h3>
-            <p>
-              Brokers and international buyers access live reservation status, payment milestone escrow, and verified CAD architectural blueprints without double-booking risk.
-            </p>
-          </div>
-
-        </div>
-
-        <div style="text-align: center; margin-top: 48px;">
-          <a href="https://estateos.yuvathy.in" target="_blank" rel="noopener noreferrer" class="btn-ghost-cyan">
-            <span>Explore EstateOS Platform</span>
-            <i class="ri-external-link-line"></i>
-          </a>
-        </div>
-
-      </div>
-    </section>
-
+    <!-- Populated dynamically by VillaTourEngine based on selected estate -->
   </main>
+
+  <!-- =========================================================================
+       ESTATEOS PROPTECH INFRASTRUCTURE
+       ========================================================================= -->
+  <section id="proptech" class="section-padding estateos-section" style="position: relative; z-index: 10;">
+    <div class="container">
+      
+      <div class="section-head">
+        <div class="estateos-badge-chip">
+          <i class="ri-cpu-line"></i>
+          <span>OPERATED VIA ESTATEOS</span>
+        </div>
+        <h2 class="section-title">Intelligent Infrastructure for Modern Estates.</h2>
+        <p class="section-subtitle">
+          Every residence in Villa Atelier runs on <strong>EstateOS</strong>—the real estate CRM, ERP, and Meta marketing integration suite engineered by Yuvathy Technologies.
+        </p>
+      </div>
+
+      <div class="estateos-card-grid">
+        
+        <div class="ecosystem-card">
+          <div class="ecosystem-icon"><i class="ri-advertisement-line"></i></div>
+          <h3>Meta Lead Automation</h3>
+          <p>
+            High-net-worth buyer inquiries from Instagram and Facebook are captured in real-time with automated NDA delivery, KYC qualification, and private consultation dispatch.
+          </p>
+        </div>
+
+        <div class="ecosystem-card">
+          <div class="ecosystem-icon"><i class="ri-shield-keyhole-line"></i></div>
+          <h3>Biometric Access &amp; ERP</h3>
+          <p>
+            From visitor access passes and security staff rotas to geothermal heating analytics, the entire property is managed from one calm, unified workspace.
+          </p>
+        </div>
+
+        <div class="ecosystem-card">
+          <div class="ecosystem-icon"><i class="ri-money-dollar-circle-line"></i></div>
+          <h3>Dynamic Inventory Lock</h3>
+          <p>
+            Brokers and international buyers access live reservation status, payment milestone escrow, and verified CAD architectural blueprints without double-booking risk.
+          </p>
+        </div>
+
+      </div>
+
+      <div style="text-align: center; margin-top: 48px;">
+        <a href="https://estateos.yuvathy.in" target="_blank" rel="noopener noreferrer" class="btn-ghost-cyan">
+          <span>Explore EstateOS Platform</span>
+          <i class="ri-external-link-line"></i>
+        </a>
+      </div>
+
+    </div>
+  </section>
 
   <!-- =========================================================================
        VIP BOOKING MODAL

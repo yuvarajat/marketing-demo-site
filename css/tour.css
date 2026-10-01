@@ -1,6 +1,5 @@
 /* ==========================================================================
-   LUMINA VILLA - MINIMALIST LUXURY 3D TOUR & SCROLLYTELLING
-   Ultra-clean, uncluttered aesthetic for MacBook dark-room recording
+   LUMINA VILLA - CONTINUOUS 3D WALKTHROUGH & INTERACTIVE HOUSE MAP
    ========================================================================== */
 
 /* Full Viewport 3D Flythrough Stage */
@@ -21,17 +20,17 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  transform-origin: center center;
+  transform-origin: 50% 52%;
   will-change: transform, filter, opacity;
-  transition: opacity 0.4s ease, filter 0.5s ease;
+  transition: opacity 0.35s ease;
 }
 
 /* Cinematic Subtle Vignette */
 .cinematic-vignette {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, transparent 45%, rgba(2, 3, 6, 0.7) 100%),
-              linear-gradient(to bottom, rgba(2, 3, 6, 0.85) 0%, transparent 12%, transparent 88%, rgba(2, 3, 6, 0.9) 100%);
+  background: radial-gradient(circle at center, transparent 48%, rgba(2, 3, 6, 0.68) 100%),
+              linear-gradient(to bottom, rgba(2, 3, 6, 0.85) 0%, transparent 10%, transparent 90%, rgba(2, 3, 6, 0.9) 100%);
   pointer-events: none;
   z-index: 2;
 }
@@ -58,7 +57,7 @@
 
 .indicator-title {
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: 1.35rem;
   color: var(--text-primary);
   font-weight: 500;
   letter-spacing: -0.01em;
@@ -66,9 +65,118 @@
 
 .indicator-specs {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: var(--text-muted);
+  font-size: 0.72rem;
+  color: var(--cyan-laser);
   letter-spacing: 0.08em;
+}
+
+/* ==========================================================================
+   INTERACTIVE ARCHITECTURAL HOUSE MAP (Bottom Right Floating HUD)
+   ========================================================================== */
+.house-map-widget {
+  position: fixed;
+  bottom: 28px;
+  right: 36px;
+  z-index: 15;
+  background: rgba(6, 8, 14, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  border-radius: var(--radius-lg);
+  padding: 18px 22px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), var(--glow-gold);
+  transition: all var(--duration-normal) var(--ease-out-expo);
+  width: 290px;
+}
+
+.house-map-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.house-map-title {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  color: var(--gold-light);
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.house-map-pulse {
+  width: 6px;
+  height: 6px;
+  background: var(--cyan-laser);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--cyan-laser);
+  animation: pulseDot 2s infinite;
+}
+
+.house-map-subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+}
+
+.house-map-svg {
+  width: 100%;
+  height: 120px;
+  display: block;
+}
+
+/* Map Interactive Waypoint Nodes */
+.map-node {
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.map-node circle.node-bg {
+  fill: #0c121e;
+  stroke: rgba(212, 175, 55, 0.4);
+  stroke-width: 1.5;
+  transition: all 0.25s ease;
+}
+
+.map-node circle.node-core {
+  fill: var(--gold-primary);
+  transition: all 0.25s ease;
+}
+
+.map-node text {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  fill: #94a3b8;
+  letter-spacing: 0.05em;
+  transition: fill 0.25s ease;
+  pointer-events: none;
+}
+
+.map-node:hover circle.node-bg,
+.map-node.active circle.node-bg {
+  stroke: var(--cyan-laser);
+  fill: rgba(0, 242, 254, 0.2);
+  filter: drop-shadow(0 0 6px var(--cyan-laser));
+}
+
+.map-node:hover circle.node-core,
+.map-node.active circle.node-core {
+  fill: #ffffff;
+}
+
+.map-node:hover text,
+.map-node.active text {
+  fill: #ffffff;
+  font-weight: 700;
+}
+
+/* Live Traveler Drone Pin on Map */
+#map-traveler-pin {
+  transition: transform 0.4s var(--ease-out-expo);
+  pointer-events: none;
 }
 
 /* Scrollytelling Virtual Scroll Spacer */
@@ -144,57 +252,13 @@
   margin-top: 2px;
 }
 
-/* Minimal Scroll Wheel Prompt */
-.scroll-prompt {
-  position: fixed;
-  bottom: 32px;
-  right: 40px;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  pointer-events: none;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.18em;
-  color: var(--gold-light);
-  opacity: 0.85;
-  transition: opacity 0.5s ease;
-}
-
-.mouse-scroll-wheel {
-  width: 18px;
-  height: 28px;
-  border: 1px solid var(--gold-primary);
-  border-radius: 10px;
-  position: relative;
-}
-
-.mouse-scroll-wheel::after {
-  content: '';
-  position: absolute;
-  top: 4px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 2.5px;
-  height: 6px;
-  background: var(--gold-light);
-  border-radius: 2px;
-  animation: wheelScroll 1.8s infinite;
-}
-
-@keyframes wheelScroll {
-  0% { transform: translate(-50%, 0); opacity: 1; }
-  100% { transform: translate(-50%, 10px); opacity: 0; }
-}
-
-@media (max-width: 768px) {
+@media (max-width: 900px) {
+  .house-map-widget {
+    display: none;
+  }
   .minimal-room-indicator {
     left: 20px;
     bottom: 20px;
-  }
-  .scroll-prompt {
-    display: none;
   }
   .tour-card-panel {
     max-width: 100%;
